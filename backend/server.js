@@ -111,6 +111,26 @@ app.get('/api/events', (req, res) => {
     });
 });
 
+app.get('/api/events/published', (req, res) => {
+  Event.find({ published: true })
+    .populate('attendees')
+    .populate('yesList')
+    .populate('noList')
+    .exec((err, varToStoreResult) => {
+      res.json(varToStoreResult);
+    });
+});
+
+app.get('/api/events/unpublished', (req, res) => {
+  Event.find({ published: false })
+    .populate('attendees')
+    .populate('yesList')
+    .populate('noList')
+    .exec((err, varToStoreResult) => {
+      res.json(varToStoreResult);
+    });
+});
+
 // get events
 app.get('/api/event', (req, res) => {
   let query = { _id: req.query.id };
