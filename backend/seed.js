@@ -38,6 +38,34 @@ community.save(() => {
       noList: [],
       attendees: [],
     });
+
+    for (let i = 1; i <= 12; i++) {
+      const e = new Event({
+        name: `Test Event ${i}`,
+        desc: 'This is a test event.',
+        published: false,
+        creator: creator,
+        yesList: [],
+        noList: [],
+        attendees: [],
+      });
+      e.save();
+    }
+
+    for (let i = 1; i <= 5; i++) {
+      const e = new Event({
+        name: `Published Event ${i}`,
+        desc: 'This is a published test event.',
+        published: true,
+        date: Date.now(),
+        creator: creator,
+        yesList: [],
+        noList: [],
+        attendees: [],
+      });
+      e.save();
+    }
+
     event.save((err, evt) => {
       community.events.push(event);
       community.save((err) => {
@@ -80,18 +108,3 @@ community.save(() => {
     });
   });
 });
-
-const user5Id = '5c6830bcc3c6c6a7e794ad0c';
-
-for (let i = 1; i <= 12; i++) {
-  const e = new Event({
-    name: `Test Event ${i}`,
-    desc: 'This is a test event.',
-    published: false,
-    creator: user5Id,
-    yesList: [],
-    noList: [],
-    attendees: [],
-  });
-  e.save();
-}
