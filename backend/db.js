@@ -41,10 +41,12 @@ const userSchema = new mongoose.Schema({
       ref: 'Community',
     },
   ],
-  events: {
-    type: ObjectId,
-    ref: 'Event',
-  },
+  events: [
+    {
+      type: ObjectId,
+      ref: 'Event',
+    },
+  ],
 });
 
 const eventSchema = new mongoose.Schema({
