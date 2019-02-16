@@ -33,10 +33,12 @@ const communitySchema = new mongoose.Schema({
 
 const userSchema = new mongoose.Schema({
   name: String,
-  community: {
-    type: ObjectId,
-    ref: 'Community',
-  },
+  communities: [
+    {
+      type: ObjectId,
+      ref: 'Community',
+    },
+  ],
   events: {
     type: ObjectId,
     ref: 'Event',
