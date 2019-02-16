@@ -10,7 +10,7 @@
 /coverage
 
 # production
-/build
+/hack-nyu/build
 
 # misc
 .DS_Store
