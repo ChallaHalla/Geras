@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import VoteButton from '../VoteButton/VoteButton';
+import VoteDisplay from '../VoteDisplay/VoteDisplay';
 
 class VoteView extends Component {
   constructor(props) {
@@ -27,7 +28,7 @@ class VoteView extends Component {
   render() {
     return (
       <div>
-        {this.state.events && <h1>{this.state.events[0].name}</h1>}
+        <VoteDisplay event={this.state.events[0]} />
         <VoteButton type={false} handleClick={this.handleVote} />
         <VoteButton type={true} handleClick={this.handleVote} />
       </div>
