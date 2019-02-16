@@ -10,6 +10,8 @@ class VoteView extends Component {
     super(props);
     this.state = {};
   }
+    
+  
 
   componentDidMount() {
     setTimeout(() => {
@@ -57,5 +59,14 @@ class VoteView extends Component {
       else return display;
   }
 }
+function shuffle(arr){
 
+  for (let i = arr.length-1; i>0; ){
+
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  
+  }
+  return arr;
+}
 export default VoteView;
