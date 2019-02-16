@@ -26,6 +26,7 @@ app.get('/api/user', (req, res) => {
     res.json(varToStoreResult);
   });
 });
+
 //create users
 app.post('/api/user', (req, res) => {
   const user = new User({
@@ -68,26 +69,76 @@ app.get('/api/event', (req, res) => {
 
 //create events
 app.post('/api/events', (req, res) => {
-  user = User.findOne(
-    { _id: req.session.userId },
-    (err, varToStoreResult, count) => {
-      return varToStoreResult;
-    }
-  );
-  event = new Event({
-    name: req.body.name,
-    descr: req.body.descr,
-    creator: user,
-    yesList: [],
-    noList: [],
-  });
-  event.save(() => {
-    res.end();
+  User.findOne( { _id: req.session.userId }, (err, varToStoreResult) => {
+    let user =  varToStoreResult;
+    event = new Event({
+      name: req.body.name,
+      descr: req.body.descr,
+      published: false,
+      creator: user,
+      yesList: [],
+      noList: [],
+      attendees:[],
+    });
+    event.save(() => {
+      res.end();
+    });
   });
 });
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + '/../hack-nyu/public/index.html'));
+//event vote
+app.post('/api/vote', (req, res)=>{
+  let user;
+  User.findOne({_id: req.body.userId},(err, varToStoreResult, count)=>{
+    user = varToStoreResult;
+    let event;
+    Event.findOne({_id: req.body.eventId}, (err, varToStoreResult)=>{
+      event = varToStoreResult;
+    }).then(() =>{
+      if(req.body.vote === 'yes'){
+        event.yesList.push(user);
+      } else if(req.body.vote === 'no'){
+        event.noList.push(user);
+      }
+      console.log(event);
+      event.save(()=>{
+        res.end();
+      });
+    });
+  });
 });
+
+// publish event
+app.post('/api/publishEvent', (req, res)=>{
+  Event.findOne({_id: req.body.eventId}, (err, varToStoreResult)=>{
+    let event = varToStoreResult;
+    event.published = true;
+    event.save(()=>{
+      req.end();
+    });
+  });
+});
+
+// add guest
+app.post('/api/event/addGuest', (req, res)=>{
+  Event.findOne({_id: req.body.eventId}, (err, varToStoreResult)=>{
+    let event = varToStoreResult;
+    User.findOne({_id: req.body.userId},(err, varToStoreResult)=>{
+      let user = varToStoreResult
+      // perhaps check if user exists in array before pushing
+      event.attendees.push(user);
+      console.log(event);
+      event.save(()=>{
+        res.end();
+      });
+    });
+  });
+});
+
+
+
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname + '/../hack-nyu/public/index.html'));
+// });
 
 app.listen(3001);
