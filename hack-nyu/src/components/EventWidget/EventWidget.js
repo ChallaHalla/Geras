@@ -7,17 +7,35 @@ function EventWidget(props) {
   return (
     <div className='eventWidget'>
       <h2 className='name'>{e.name}</h2>
-      <p className='date'>{e.Date.getMonth + 1}/{e.Date.getDay}/{e.Date.getFullYear}</p>
-      <p className='time'>{e.Date.getHour}:</p>
+      <p className='date'>{e.Date.getMonth() + 1}/{e.Date.getDay()}/{e.Date.getFullYear()}</p>
+      <p className='time'>{timeReturn(e).hours}:{timeReturn(e).mins}&nbsp;{timeReturn(e).m}</p>
       <p className='location'>{e.location}</p>
-      <p className='attendies'>{e.attendies[]} </p>
+      <p className='attendees'>{e.attendees} </p>
       {e.image && <img src={e.image} className='previewImage' />}
     </div>
   );
 }
 
-function timeReturn(props){
-    const t = props.event.Date.getTime;
+function timeReturn(e){
+    const t = e.getHours();
+    const m = 'AM'
+    if (t>=13){
+      t-=12;
+      m= 'PM';
+    }
+    const mins = e.getMinutes();
+    const all = {
+      hours : t,
+      mins : mins,
+      phase : m
+    };
+    return all;
 }
+function attendeeList(e){
+  if (e.attendees.length>3){
+      return null
+  }
+}
+
 
 export default EventWidget;
