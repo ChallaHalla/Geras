@@ -1,5 +1,5 @@
 import React from 'react';
-import './EventWidget.css';
+
 
 function EventWidget(props) {
   const e = props.event;
@@ -14,7 +14,7 @@ function EventWidget(props) {
         {timeReturn(e).hours}:{timeReturn(e).mins}&nbsp;{timeReturn(e).m}
       </p>
       <p className='location'>{e.location}</p>
-      <p className='attendees'>{e.attendees} </p>
+      <p className='attendees'>{attendeeList(e)}</p>
       {e.image && <img src={e.image} className='previewImage' />}
     </div>
   );
@@ -39,6 +39,22 @@ function attendeeList(e) {
   if (e.attendees.length > 3) {
     return null;
   }
+  else if (e.attendees.length===3){
+    return(
+      e.attendees[0].name + ', ' + e.attendees[1].name + ', ' + e.attendees[2].name + " are going!"
+    )
+  }
+  else if (e.attendees.length===2){
+    return(
+      e.attendees[0].name + ', ' + e.attendees[1].name + " are going!"
+    )
+  }
+  else if (e.attendees.length===1){
+    return(
+      e.attendees[0].name + " is going"
+    )
+  }
+  else return "Be the first to sign up!"
 }
 
 export default EventWidget;
