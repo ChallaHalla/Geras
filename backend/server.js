@@ -3,6 +3,7 @@ const session = require('express-session');
 const db = require('./db');
 const mongoose = require('mongoose');
 const path = require('path');
+const cors = require('cors');
 const fn = path.join(__dirname, 'config.json');
 const app = express();
 
@@ -18,6 +19,10 @@ app.use(
     saveUninitialized: true,
   })
 );
+
+// TEMPORARY - DEV ONLY
+app.use(cors());
+// REMOVE LATER
 
 // get users
 app.get('/api/users', (req, res) => {

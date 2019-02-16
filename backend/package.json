@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/ChallaHalla/hackNYU#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "express-session": "^1.15.6",
