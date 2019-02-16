@@ -6,10 +6,12 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.15",
     "@fortawesome/free-solid-svg-icons": "^5.7.2",
     "@fortawesome/react-fontawesome": "^0.1.4",
+    "history": "^4.7.2",
     "i": "^0.3.6",
     "npm": "^6.8.0",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
+    "react-router": "^4.3.1",
     "react-scripts": "2.1.5",
     "react-svg-spinner": "^1.0.2"
   },

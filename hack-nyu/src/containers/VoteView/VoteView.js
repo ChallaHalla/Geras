@@ -13,17 +13,19 @@ class VoteView extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:3001/api/events')
-      .then((res) => res.json())
-      .then((data) => {
-        // data has been sucessfully fetched
-        console.log(data);
-        this.setState({
-          currentEvent: data.pop(),
-          events: data,
-        });
-      })
-      .catch(console.log);
+    setTimeout(() => {
+      fetch('http://localhost:3001/api/events')
+        .then((res) => res.json())
+        .then((data) => {
+          // data has been sucessfully fetched
+          console.log(data);
+          this.setState({
+            currentEvent: data.pop(),
+            events: data,
+          });
+        })
+        .catch(console.log);
+    }, 3000);
   }
 
   handleVote = (vote) => {
