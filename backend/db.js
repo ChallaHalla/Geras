@@ -50,6 +50,7 @@ const userSchema = new mongoose.Schema({
 const eventSchema = new mongoose.Schema({
   name: String,
   desc: String,
+  published: Boolean,
   creator: {
     type: ObjectId,
     ref: 'User',
