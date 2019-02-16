@@ -130,7 +130,7 @@ app.get('/api/event', (req, res) => {
 app.post('/api/events', (req, res) => {
   Community.findOne({ _id: req.body.communityId }, (err, varToStoreResult) => {
     let community = varToStoreResult;
-    User.findOne({ _id: req.body.userId }, (err, varToStoreResult) => {
+    User.findOne({ _id: req.session.userId }, (err, varToStoreResult) => {
       let user = varToStoreResult;
       event = new Event({
         name: req.body.name,
@@ -152,7 +152,7 @@ app.post('/api/events', (req, res) => {
 //event vote
 app.post('/api/vote', (req, res) => {
   let user;
-  User.findOne({ _id: req.body.userId }, (err, varToStoreResult, count) => {
+  User.findOne({ _id: req.session.userId }, (err, varToStoreResult, count) => {
     user = varToStoreResult;
     let event;
     Event.findOne({ _id: req.body.eventId }, (err, varToStoreResult) => {
@@ -187,7 +187,7 @@ app.post('/api/publishEvent', (req, res) => {
 app.post('/api/event/addGuest', (req, res) => {
   Event.findOne({ _id: req.body.eventId }, (err, varToStoreResult) => {
     let event = varToStoreResult;
-    User.findOne({ _id: req.body.userId }, (err, varToStoreResult) => {
+    User.findOne({ _id: req.session.userId }, (err, varToStoreResult) => {
       let user = varToStoreResult;
       // perhaps check if user exists in array before pushing
       event.attendees.push(user._id);
@@ -200,6 +200,20 @@ app.post('/api/event/addGuest', (req, res) => {
   });
 });
 
+// temporary route to create a cookie on the browser
+app.get('/api/cookie', (req, res) => {
+  res.json(req.session);
+});
+
+app.get('/api/cookie/:key/:val', (req, res) => {
+  req.session[req.params.key] = req.params.val;
+  res.json(req.session);
+});
+
+// serve the react build as a static app
 app.get('*', express.static('../hack-nyu/build'));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../hack-nyu/build/index.html'));
+});
 
 app.listen(3001);
