@@ -12,7 +12,7 @@ if (process.env.NODE_ENV === 'development') {
 } else {
   user = process.env.DB_USER;
   pass = process.env.DB_PASS;
-  db = ''; // FILL THIS IN LATER
+  db = `mongodb://${user}:${pass}@ds147985.mlab.com:47985/hacknyu19`;
 }
 
 const communitySchema = new mongoose.Schema({
