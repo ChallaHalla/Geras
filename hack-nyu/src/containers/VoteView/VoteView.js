@@ -10,7 +10,7 @@ class VoteView extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:3001/api/events')
+    fetch('http://localhost:3001/api/events/unpublished')
       .then((res) => res.json())
       .then((data) => {
         // data has been sucessfully fetched
