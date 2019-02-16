@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import VoteButton from '../../components/VoteButton/VoteButton';
 import VoteDisplay from '../../components/VoteDisplay/VoteDisplay';
+import VoteLoader from '../../components/VoteLoader/VoteLoader';
 
 // DEV ONLY
 const user3Id = '5c6830bcc3c6c6a7e794ad0b'; // this is the demo userid for the user 3
@@ -44,6 +45,7 @@ class VoteView extends Component {
   render() {
     return (
       <div>
+        <VoteLoader />
         <VoteDisplay event={this.state.currentEvent} />
         <VoteButton type={false} handleClick={this.handleVote} />
         <VoteButton type={true} handleClick={this.handleVote} />
