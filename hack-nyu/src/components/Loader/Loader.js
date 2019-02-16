@@ -1,7 +1,7 @@
 import React from 'react';
 import Spinner from 'react-svg-spinner';
 
-function VoteLoader() {
+function Loader() {
   return (
     <div>
       <Spinner height='128px' width='128px' color='teal' />
@@ -9,4 +9,4 @@ function VoteLoader() {
   );
 }
 
-export default VoteLoader;
+export default Loader;

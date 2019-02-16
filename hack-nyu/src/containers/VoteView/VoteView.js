@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import VoteButton from '../../components/VoteButton/VoteButton';
 import VoteDisplay from '../../components/VoteDisplay/VoteDisplay';
-import VoteLoader from '../../components/VoteLoader/VoteLoader';
+import Loader from '../../components/Loader/Loader';
 
 class VoteView extends Component {
   constructor(props) {
@@ -58,7 +58,7 @@ class VoteView extends Component {
       </div>
     );
     if (this.state.events === undefined) {
-      return <VoteLoader />;
+      return <Loader />;
     } else return display;
   }
 }
