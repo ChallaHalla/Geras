@@ -1,4 +1,5 @@
 const express = require('express');
+const session = require('express-session');
 const db = require('./db');
 const mongoose = require('mongoose');
 const path = require('path');
@@ -10,6 +11,13 @@ const Event = mongoose.model('Event');
 const User = mongoose.model('User');
 
 app.use(express.urlencoded({ extended: false }));
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || 'local session secret',
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
 // get users
 app.get('/api/user', (req, res) => {
@@ -25,7 +33,8 @@ app.post('/api/user', (req, res) => {
     communities: [req.body.community],
     events: [],
   });
-  user.save().then(() => {
+  user.save().then((user) => {
+    req.session.userId = user._id;
     res.end();
   });
 });
