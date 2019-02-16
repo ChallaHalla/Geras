@@ -47,6 +47,7 @@ app.get('/api/community', (req, res) => {
     res.json(varToStoreResult);
   });
 });
+
 //create communities
 app.post('/api/community', (req, res) => {
   community = new Community({
@@ -56,6 +57,20 @@ app.post('/api/community', (req, res) => {
   });
   community.save(() => {
     res.end();
+  });
+});
+
+// add to community
+app.post('/api/community/add', (req, res) => {
+  Community.findOne({ _id: req.session.communityId }, (err, varToStoreResult) => {
+    let community = varToStoreResult;
+      User.findOne( { _id: req.session.userId }, (err, varToStoreResult) => {
+        let user = varToStoreResult;
+        community.users.push(user);
+        community.save(() => {
+          res.end();
+        });
+      });
   });
 });
 
@@ -69,19 +84,23 @@ app.get('/api/event', (req, res) => {
 
 //create events
 app.post('/api/events', (req, res) => {
-  User.findOne( { _id: req.session.userId }, (err, varToStoreResult) => {
-    let user =  varToStoreResult;
-    event = new Event({
-      name: req.body.name,
-      descr: req.body.descr,
-      published: false,
-      creator: user,
-      yesList: [],
-      noList: [],
-      attendees:[],
-    });
-    event.save(() => {
-      res.end();
+  Community.findOne({ _id: req.session.communityId }, (err, varToStoreResult) =>{
+    let community = varToStoreResult;
+    User.findOne( { _id: req.session.userId }, (err, varToStoreResult) => {
+      let user =  varToStoreResult;
+      event = new Event({
+        name: req.body.name,
+        descr: req.body.descr,
+        published: false,
+        creator: user,
+        yesList: [],
+        noList: [],
+        attendees:[],
+      });
+      community.events.push(event);
+      event.save(() => {
+        res.end();
+      });
     });
   });
 });
@@ -134,8 +153,6 @@ app.post('/api/event/addGuest', (req, res)=>{
     });
   });
 });
-
-
 
 // app.get('*', (req, res) => {
 //   res.sendFile(path.join(__dirname + '/../hack-nyu/public/index.html'));
