@@ -12,6 +12,7 @@ const Event = mongoose.model('Event');
 const User = mongoose.model('User');
 
 app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 app.use(
   session({
     secret: process.env.SESSION_SECRET || 'local session secret',
@@ -27,18 +28,24 @@ app.use(cors());
 // get users
 app.get('/api/users', (req, res) => {
   let query = {};
-  User.find().populate('events').populate('communities').exec((err, varToStoreResult) =>{
-    res.json(varToStoreResult);
-  });
+  User.find()
+    .populate('events')
+    .populate('communities')
+    .exec((err, varToStoreResult) => {
+      res.json(varToStoreResult);
+    });
 });
 
 //get user
 app.get('/api/user', (req, res) => {
-  if(req.query.userId !== undefined){
-    User.findOne({_id: req.query.userId}).populate('events').populate('communities').exec((err, varToStoreResult) =>{
-      console.log(varToStoreResult);
-      res.json(varToStoreResult);
-    });
+  if (req.query.userId !== undefined) {
+    User.findOne({ _id: req.query.userId })
+      .populate('events')
+      .populate('communities')
+      .exec((err, varToStoreResult) => {
+        console.log(varToStoreResult);
+        res.json(varToStoreResult);
+      });
   }
 });
 
@@ -95,49 +102,36 @@ app.post('/api/community/add', (req, res) => {
 // get events
 app.get('/api/events', (req, res) => {
   let query = {};
-  Event.find().populate('attendees').populate('yesList').populate('noList').exec((err, varToStoreResult) => {
-    res.json(varToStoreResult);
-  });
+  Event.find()
+    .populate('attendees')
+    .populate('yesList')
+    .populate('noList')
+    .exec((err, varToStoreResult) => {
+      res.json(varToStoreResult);
+    });
 });
 
 // get events
 app.get('/api/event', (req, res) => {
-  let query = {_id: req.query.id};
+  let query = { _id: req.query.id };
   let event;
-  if(req.query.id !== undefined){
-    Event.findOne(query).populate('attendees').populate('yesList').populate('noList').exec((err, varToStoreResult)=>{
-      res.json(varToStoreResult);
-    });
+  if (req.query.id !== undefined) {
+    Event.findOne(query)
+      .populate('attendees')
+      .populate('yesList')
+      .populate('noList')
+      .exec((err, varToStoreResult) => {
+        res.json(varToStoreResult);
+      });
   }
 });
 
 //create events
 app.post('/api/events', (req, res) => {
-<<<<<<< HEAD
-  Community.findOne(
-    { _id: req.session.communityId },
-    (err, varToStoreResult) => {
-      let community = varToStoreResult;
-      User.findOne({ _id: req.session.userId }, (err, varToStoreResult) => {
-        let user = varToStoreResult;
-        event = new Event({
-          name: req.body.name,
-          descr: req.body.descr,
-          published: false,
-          creator: user,
-          yesList: [],
-          noList: [],
-          attendees: [],
-        });
-        community.events.push(event);
-        event.save(() => {
-          res.end();
-        });
-=======
-  Community.findOne({ _id: req.body.communityId }, (err, varToStoreResult) =>{
+  Community.findOne({ _id: req.body.communityId }, (err, varToStoreResult) => {
     let community = varToStoreResult;
-    User.findOne( { _id: req.body.userId }, (err, varToStoreResult) => {
-      let user =  varToStoreResult;
+    User.findOne({ _id: req.body.userId }, (err, varToStoreResult) => {
+      let user = varToStoreResult;
       event = new Event({
         name: req.body.name,
         desc: req.body.desc,
@@ -145,15 +139,14 @@ app.post('/api/events', (req, res) => {
         creator: user,
         yesList: [],
         noList: [],
-        attendees:[],
+        attendees: [],
       });
       community.events.push(event);
       event.save(() => {
         res.end();
->>>>>>> api updated for mongo populate function
       });
-    }
-  );
+    });
+  });
 });
 
 //event vote
@@ -164,20 +157,12 @@ app.post('/api/vote', (req, res) => {
     let event;
     Event.findOne({ _id: req.body.eventId }, (err, varToStoreResult) => {
       event = varToStoreResult;
-<<<<<<< HEAD
     }).then(() => {
-      if (req.body.vote === 'yes') {
-        event.yesList.push(user);
-      } else if (req.body.vote === 'no') {
-        event.noList.push(user);
-=======
-    }).then(() =>{
       // true is vote yes false is vote no
-      if(req.body.vote){
+      if (req.body.vote) {
         event.yesList.push(user._id);
-      } else{
+      } else {
         event.noList.push(user._id);
->>>>>>> api updated for mongo populate function
       }
       console.log(event);
       event.save(() => {
@@ -207,26 +192,14 @@ app.post('/api/event/addGuest', (req, res) => {
       // perhaps check if user exists in array before pushing
       event.attendees.push(user._id);
       console.log(event);
-<<<<<<< HEAD
       event.save(() => {
-=======
-      event.save(()=>{
-        console.log("guest added");
->>>>>>> api updated for mongo populate function
+        console.log('guest added');
         res.end();
       });
     });
   });
 });
 
-<<<<<<< HEAD
 app.get('*', express.static('../hack-nyu/build'));
-=======
-
-
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname + '/../hack-nyu/public/index.html'));
-// });
->>>>>>> api updated for mongo populate function
 
 app.listen(3001);

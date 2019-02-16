@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import VoteButton from '../VoteButton/VoteButton';
-import VoteDisplay from '../VoteDisplay/VoteDisplay';
+import VoteButton from '../../components/VoteButton/VoteButton';
+import VoteDisplay from '../../components/VoteDisplay/VoteDisplay';
+
+// DEV ONLY
+const user3Id = '5c6830bcc3c6c6a7e794ad0b'; // this is the demo userid for the user 3
 
 class VoteView extends Component {
   constructor(props) {
@@ -9,7 +12,7 @@ class VoteView extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:3001/api/event')
+    fetch('http://localhost:3001/api/events')
       .then((res) => res.json())
       .then((data) => {
         // data has been sucessfully fetched
@@ -24,6 +27,18 @@ class VoteView extends Component {
 
   handleVote = (vote) => {
     console.log(`Someone voted for ${vote ? 'YES' : 'NO'}`);
+    const data = {
+      userId: user3Id, //temporary userid
+      eventId: this.state.currentEvent._id,
+      vote,
+    };
+    fetch('http://localhost:3001/api/vote', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
   };
 
   render() {

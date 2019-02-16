@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import VoteView from './components/VoteView/VoteView';
+import VoteView from './containers/VoteView/VoteView';
 
 class App extends Component {
   render() {
