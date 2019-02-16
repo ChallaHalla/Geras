@@ -8,6 +8,7 @@ let pass;
 
 if (process.env.NODE_ENV === 'development') {
   db = 'mongodb://localhost/hackNYU';
+  console.log('dev environment');
 } else {
   user = process.env.DB_USER;
   pass = process.env.DB_PASS;
