@@ -15,6 +15,7 @@ class VoteView extends Component {
         // data has been sucessfully fetched
         console.log(data);
         this.setState({
+          currentEvent: data.pop(),
           events: data,
         });
       })
@@ -28,7 +29,7 @@ class VoteView extends Component {
   render() {
     return (
       <div>
-        <VoteDisplay event={this.state.events[0]} />
+        <VoteDisplay event={this.state.currentEvent} />
         <VoteButton type={false} handleClick={this.handleVote} />
         <VoteButton type={true} handleClick={this.handleVote} />
       </div>
