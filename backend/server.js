@@ -9,72 +9,73 @@ const Community = mongoose.model('Community');
 const Event = mongoose.model('Event');
 const User = mongoose.model('User');
 
+app.use(express.urlencoded({ extended: false }));
+
 // get users
-app.get('/api/user', (req, res)=>{
+app.get('/api/user', (req, res) => {
   let query = {};
-  User.find(query, (err, varToStoreResult, count)=>{
+  User.find(query, (err, varToStoreResult, count) => {
     res.json(varToStoreResult);
   });
 });
 //create users
-app.post('/api/user', (req, res)=>{
-  user = new User({
+app.post('/api/user', (req, res) => {
+  const user = new User({
     name: req.body.name,
     communities: [req.body.community],
-    events:[],
+    events: [],
   });
-  user.save(()=>{
-    req.end();
+  user.save().then(() => {
+    res.end();
   });
 });
 
 // get communities
-app.get('/api/community', (req, res)=>{
+app.get('/api/community', (req, res) => {
   let query = {};
-  Community.find(query, (err, varToStoreResult, count)=>{
+  Community.find(query, (err, varToStoreResult, count) => {
     res.json(varToStoreResult);
   });
-
 });
 //create communities
-app.post('/api/community', (req, res)=>{
+app.post('/api/community', (req, res) => {
   community = new Community({
     name: req.body.name,
-    users:[],
-    events:[],
+    users: [],
+    events: [],
   });
-  community.save(()=>{
-    req.end();
+  community.save(() => {
+    res.end();
   });
 });
 
 // get events
-app.get('/api/event', (req, res)=>{
+app.get('/api/event', (req, res) => {
   let query = {};
-  Event.find(query, (err, varToStoreResult, count)=>{
+  Event.find(query, (err, varToStoreResult, count) => {
     res.json(varToStoreResult);
   });
-
 });
 
 //create events
-app.post('/api/events', (req, res)=>{
-  user = User.findOne({_id: req.session.userId},(err, varToStoreResult, count)=>{
-    return varToStoreResult;
-  });
+app.post('/api/events', (req, res) => {
+  user = User.findOne(
+    { _id: req.session.userId },
+    (err, varToStoreResult, count) => {
+      return varToStoreResult;
+    }
+  );
   event = new Event({
     name: req.body.name,
-    descr:req.body.descr,
+    descr: req.body.descr,
     creator: user,
-    yesList:[],
-    noList:[],
+    yesList: [],
+    noList: [],
   });
-  event.save(()=>{
-    req.end();
+  event.save(() => {
+    res.end();
   });
 });
-
-
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname + '/../hack-nyu/public/index.html'));
