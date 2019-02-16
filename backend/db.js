@@ -54,6 +54,7 @@ const eventSchema = new mongoose.Schema({
     type: ObjectId,
     ref: 'User',
   },
+  date: Date,
   yesList: [
     {
       type: ObjectId,
@@ -61,6 +62,12 @@ const eventSchema = new mongoose.Schema({
     },
   ],
   noList: [
+    {
+      type: ObjectId,
+      ref: 'User',
+    },
+  ],
+  attendees: [
     {
       type: ObjectId,
       ref: 'User',
