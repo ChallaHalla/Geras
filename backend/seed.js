@@ -31,7 +31,7 @@ community.save(()=>{
   creator.save(()=>{
     const event = new Event({
       name: "test event",
-      descr: "test desc",
+      desc: "test desc",
       published: false,
       creator: creator,
       yesList: [],
