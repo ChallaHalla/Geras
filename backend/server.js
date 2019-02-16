@@ -4,8 +4,80 @@ const mongoose = require('mongoose');
 const path = require('path');
 const fn = path.join(__dirname, 'config.json');
 const app = express();
+
+const Community = mongoose.model('Community');
+const Event = mongoose.model('Event');
+const User = mongoose.model('User');
+
+// get users
+app.get('/api/user', (req, res)=>{
+  let query = {};
+  User.find(query, (err, varToStoreResult, count)=>{
+    res.json(varToStoreResult);
+  });
+});
+//create users
+app.post('/api/user', (req, res)=>{
+  user = new User({
+    name: req.body.name,
+    communities: [req.body.community],
+    events:[],
+  });
+  user.save(()=>{
+    req.end();
+  });
+});
+
+// get communities
+app.get('/api/community', (req, res)=>{
+  let query = {};
+  Community.find(query, (err, varToStoreResult, count)=>{
+    res.json(varToStoreResult);
+  });
+
+});
+//create communities
+app.post('/api/community', (req, res)=>{
+  community = new Community({
+    name: req.body.name,
+    users:[],
+    events:[],
+  });
+  community.save(()=>{
+    req.end();
+  });
+});
+
+// get events
+app.get('/api/event', (req, res)=>{
+  let query = {};
+  Event.find(query, (err, varToStoreResult, count)=>{
+    res.json(varToStoreResult);
+  });
+
+});
+
+//create events
+app.post('/api/events', (req, res)=>{
+  user = User.findOne({_id: req.session.userId},(err, varToStoreResult, count)=>{
+    return varToStoreResult;
+  });
+  event = new Event({
+    name: req.body.name,
+    descr:req.body.descr,
+    creator: user,
+    yesList:[],
+    noList:[],
+  });
+  event.save(()=>{
+    req.end();
+  });
+});
+
+
+
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + '/client/build/index.html'));
+  res.sendFile(path.join(__dirname + '/../hack-nyu/public/index.html'));
 });
 
 app.listen(3001);

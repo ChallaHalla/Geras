@@ -17,6 +17,7 @@ if (process.env.NODE_ENV === 'development') {
 
 const communitySchema = new mongoose.Schema({
   name: String,
+  desc: String,
   users: [
     {
       type: ObjectId,
@@ -33,6 +34,7 @@ const communitySchema = new mongoose.Schema({
 
 const userSchema = new mongoose.Schema({
   name: String,
+  pin: String,
   communities: [
     {
       type: ObjectId,
