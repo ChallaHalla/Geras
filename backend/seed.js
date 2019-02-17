@@ -97,6 +97,12 @@ community.save(() => {
             events: [evt._id],
             pin: '1234',
           },
+          {
+            name: 'john-smith-tiger',
+            communities: [community._id],
+            events: [evt._id],
+            pin: '1234',
+          },
         ];
         users.forEach((u) => {
           console.log(u);

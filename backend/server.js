@@ -6,6 +6,8 @@ const path = require('path');
 const cors = require('cors');
 const fn = path.join(__dirname, 'config.json');
 const app = express();
+const animals = require('./animals.json');
+
 
 const Community = mongoose.model('Community');
 const Event = mongoose.model('Event');
@@ -61,7 +63,7 @@ app.post('/api/user', (req, res) => {
   user.save().then((user) => {
     req.session.userId = user._id;
     req.session.communityId = req.body.community._id;
-    res.end();
+    res.json({status:"success"});
   });
 });
 
@@ -81,6 +83,34 @@ app.post('/api/login', (req, res) => {
     } else{
       res.json({"status": "error"});
     }
+  });
+});
+
+app.get('/api/usernameSuggest', (req, res) => {
+  console.log(req.query);
+  const names = req.query.name.split(" ");
+  let username = names[0];
+  if(names[1]!== undefined){
+    username += "-" + names[1];
+  }
+
+  // console.log(name);
+  const arr = new Array();
+  for(let i=0; i<3; i++){
+    arr.push(username + "-" + animals[Math.floor(Math.random() * Math.floor(235))]);
+  }
+  console.log(names[0] + '-' + names[1]);
+  User.find({name: { "$regex": username, "$options": "i" }}, (err, varToStoreResult, count)=>{
+    const names = varToStoreResult.map((u)=>{
+      return u.name;
+    });
+    console.log(arr, names);
+    arr.forEach((name, index)=>{
+      if(names.indexOf(name)!== -1){
+        arr[index] = username + "-" + animals[Math.floor(Math.random() * Math.floor(235))];
+      }
+    });
+    res.json(arr);
   });
 });
 
