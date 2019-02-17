@@ -5,7 +5,7 @@ import './VoteDisplay.css';
 function VoteDisplay(props) {
   return (
     <h1 className='EventVote title is-1 '>
-      {props.event ? props.event.name : 'No event...'}
+      {props.event ? props.event.name : 'No more events'}
     </h1>
   );
 }
