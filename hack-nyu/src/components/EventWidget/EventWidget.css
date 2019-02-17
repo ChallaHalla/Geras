@@ -9,3 +9,16 @@
 .card .content {
   padding: 16px;
 }
+
+.is-primary{
+  margin-left: 0;
+  width: 100%;
+}
+
+.previewImage{
+  float: right;
+}
+
+body{
+  padding-top: 90px;
+}

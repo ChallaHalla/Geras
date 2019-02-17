@@ -22,7 +22,7 @@ function EventWidget(props) {
       <header className='card-header'>
         <p className='card-header-title'>{e.name}</p>
       </header>
-      <div className='content'>
+      <div className='content media-left'>
         <p className='description'>{e.desc}</p>
         <p className='date'>
           <FontAwesomeIcon icon={faCalendarAlt} /> {e.date.getMonth() + 1}/
@@ -34,14 +34,19 @@ function EventWidget(props) {
         </p>
         <FontAwesomeIcon icon={faMapMarkerAlt} />
         <p className='location'>{e.location}</p>
-        <p className='creator'>
-          Created by <FontAwesomeIcon icon={faUserCircle} /> {e.creator.name}
+        <p className='creator level-left'>
+          Created by  <FontAwesomeIcon icon={faUserCircle} />  {e.creator.name}
         </p>
-        <p className='attendees'>
+        <p className='attendees level-left'>
           <FontAwesomeIcon icon={faUser} /> {attendeeList(e)}
         </p>
+<<<<<<< Updated upstream
         <button onClick={()=>{props.addGuest(props.event)}}> RSVP </button>
         {e.image && <img src={e.image} className='previewImage' alt='Event' />}
+=======
+        <button className='button is-primary'>Sign Up</button>
+        {e.image && <img src={e.image} className='previewImage image is-1by1' alt='Event' />}
+>>>>>>> Stashed changes
       </div>
     </div>
   );
