@@ -66,16 +66,20 @@ app.post('/api/user', (req, res) => {
 });
 
 app.post('/api/login', (req, res) => {
+
   const username = req.body.username;
   const pin = req.body.pin;
-  User.findOne({ name: username, pin: pin }, (err, varToStoreResult) => {
-    if (varToStoreResult !== null) {
+
+  User.findOne({name: username, pin: pin}, (err, varToStoreResult)=>{
+    if(varToStoreResult !== null){
       req.session.userId = varToStoreResult._id;
       console.log(req.session);
+      varToStoreResult.status = "success";
+      console.log(varToStoreResult);
       res.json(varToStoreResult);
       // figure out what else to do
-    } else {
-      res.json({ error: 'invalid username pass' });
+    } else{
+      res.json({"status": "error"});
     }
   });
 });

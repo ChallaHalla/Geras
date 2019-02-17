@@ -4,10 +4,10 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import VoteView from './containers/VoteView/VoteView';
 import EventView from './containers/EventView/EventView';
 import { createBrowserHistory } from 'history';
-import RegisterView from './containers/RegisterView/RegisterView';
+import Register from './containers/Register/Register';
 import NavBar from './components/NavBar/NavBar';
+import Signin from './containers/Signin/Signin';
 import 'bulma/css/bulma.min.css';
-
 class App extends Component {
   render() {
     const hist = createBrowserHistory();
@@ -16,7 +16,8 @@ class App extends Component {
         <NavBar />
         <Route exact path='/vote' component={VoteView} />
         <Route exact path='/events' component={EventView} />
-        <Route exact path='/register' component={RegisterView} />
+        <Route exact path='/register' component={Register} />
+        <Route exact path='/signin' component={Signin} />
       </div>
     );
     return (
