@@ -36,7 +36,7 @@ class Signin extends Component {
       navigator.geolocation.getCurrentPosition((pos)=>{
         fetch('http://localhost:3001/api/locations?long='+pos.coords.longitude+'&lat='+pos.coords.longitude).then((res) => {
           res.json().then((c)=>{
-            console.log(c);
+            console.log("comm", c);
             this.setState({
               communities: c,
             });
@@ -48,6 +48,7 @@ class Signin extends Component {
   };
 
   getNames=()=>{
+    console.log("get names");
     fetch(
       'http://localhost:3001/api/usernameSimilar?name=' + this.state.name
     ).then((res) => {
@@ -68,6 +69,7 @@ class Signin extends Component {
     });
     console.log('body', body);
     fetch('http://localhost:3001/api/login', {
+      credentials: "include",
       method: 'POST',
       body: body,
       headers: {
@@ -116,7 +118,7 @@ class Signin extends Component {
       return (
         <div className= "hero is-fullheight has-background-grey-light">
         <div className="signUpContainer">
-        <h1 className="title is-1">{this.state.community.name}!</h1>
+        <h1 className="title is-1">{this.state.communities[1].community.name}!</h1>
         <h2 className="subtitle is-1">New York, NY 10012</h2>
         <button className="button greenHov" onClick={()=>{
 
