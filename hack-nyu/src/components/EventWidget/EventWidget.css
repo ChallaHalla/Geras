@@ -1,0 +1,11 @@
+.card.eventWidget {
+  max-width: 720px;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+}
+
+.card .content {
+  padding: 16px;
+}

@@ -6,7 +6,7 @@ import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faClock } from '@fortawesome/free-solid-svg-icons';
 import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
-// import './EventWidget.css';
+import './EventWidget.css';
 
 library.add(faMapMarkerAlt);
 library.add(faUserCircle);
@@ -18,26 +18,30 @@ function EventWidget(props) {
   const e = props.event;
 
   return (
-    <div className='eventWidget'>
-      <h2 className='name'>{e.name}</h2>
-      <p className='description'>{e.desc}</p>
-      <p className='date'>
-        <FontAwesomeIcon icon={faCalendarAlt} /> {e.date.getMonth() + 1}/
-        {e.date.getDay()}/{e.date.getFullYear()}
-      </p>
-      <p className='time'>
-        <FontAwesomeIcon icon={faClock} /> {timeReturn(e).hours}:
-        {timeReturn(e).mins}&nbsp;{timeReturn(e).m}
-      </p>
-      <FontAwesomeIcon icon={faMapMarkerAlt} />
-      <p className='location'>{e.location}</p>
-      <p className='creator'>
-        Created by <FontAwesomeIcon icon={faUserCircle} /> {e.creator.name}
-      </p>
-      <p className='attendees'>
-        <FontAwesomeIcon icon={faUser} /> {attendeeList(e)}
-      </p>
-      {e.image && <img src={e.image} className='previewImage' alt='Event' />}
+    <div className='eventWidget card'>
+      <header className='card-header'>
+        <p className='card-header-title'>{e.name}</p>
+      </header>
+      <div className='content'>
+        <p className='description'>{e.desc}</p>
+        <p className='date'>
+          <FontAwesomeIcon icon={faCalendarAlt} /> {e.date.getMonth() + 1}/
+          {e.date.getDay()}/{e.date.getFullYear()}
+        </p>
+        <p className='time'>
+          <FontAwesomeIcon icon={faClock} /> {timeReturn(e).hours}:
+          {timeReturn(e).mins}&nbsp;{timeReturn(e).m}
+        </p>
+        <FontAwesomeIcon icon={faMapMarkerAlt} />
+        <p className='location'>{e.location}</p>
+        <p className='creator'>
+          Created by <FontAwesomeIcon icon={faUserCircle} /> {e.creator.name}
+        </p>
+        <p className='attendees'>
+          <FontAwesomeIcon icon={faUser} /> {attendeeList(e)}
+        </p>
+        {e.image && <img src={e.image} className='previewImage' alt='Event' />}
+      </div>
     </div>
   );
 }

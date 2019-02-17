@@ -1,0 +1,13 @@
+.navbar {
+  display: flex;
+}
+
+.navbar div.navbar-start {
+  justify-content: 'flex-start';
+  margin-right: 'auto';
+}
+
+.navbar div.navbar-end {
+  justify-content: 'flex-end';
+  margin-left: 'auto';
+}
