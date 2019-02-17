@@ -1,16 +1,16 @@
-import React from 'react';
-import SignUpButton from '../SignUpButton/SignUpButton';
+import React, { Component } from 'react';
 
-function Login() {
-  const location = 'Your Retirement Home Here';
-  //if (checkId(cookie) === false){
-  return (
-    <div>
-      <h1>Are you located at {location}?</h1>
-      <SignUpButton type={false} handleClick={this.handleVote} />
-      <SignUpButton type={true} handleClick={this.handleVote} />
-    </div>
-  ); //}
-}
 
-export default Login;
+function ChooseCommunity(props){
+
+    return(
+            <div>
+               <h1>Are you located at ?</h1>
+               <br />
+               <button type='button' onClick={props.progressStage}>
+               Yes!
+               </button>
+            </div>
+        )
+};
+export default ChooseCommunity;

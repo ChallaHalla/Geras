@@ -7,7 +7,7 @@ class SignInView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      stage: 0,
+      stage: 1,
       name: '',
       pin: '',
     };
