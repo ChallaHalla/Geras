@@ -11,7 +11,7 @@ input {
   text-align: center;
 }
 .button{
-  padding-left: 36vw;
+  /* padding-left: 36vw; */
   text-align: center !important;
 }
 .regButton{
