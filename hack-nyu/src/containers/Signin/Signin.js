@@ -41,9 +41,23 @@ class Signin extends Component {
     }
   };
 
+  getNames=()=>{
+    fetch(
+      'http://localhost:3001/api/usernameSimilar?name=' + this.state.name
+    ).then((res) => {
+      res.json().then((names) => {
+        console.log(names);
+        this.setState({
+          usernames: names,
+        });
+        this.progressStage();
+      });
+    });
+  }
+
   signin = () => {
     const body = JSON.stringify({
-      "username": "creator",
+      "username": this.state.username,
       "pin": this.state.pin,
     });
     console.log('body', body);
@@ -87,7 +101,10 @@ class Signin extends Component {
         <div className= "hero is-fullheight has-background-grey-light">
         <h1>{this.state.community.name}!</h1>
         <h2>New York, NY 10012</h2>
-        <button onClick={this.progressStage}> Yes </button>
+        <button onClick={()=>{
+
+          this.getNames();
+        }}> Yes </button>
         <button> Find another community </button>
         </div>
       );
@@ -95,7 +112,10 @@ class Signin extends Component {
     if (this.state.stage === 4){
       return (
         <div className= "hero is-fullheight has-background-grey-light">
-        <NameList progressStage={this.progressStage} handleChange={this.handleChange}/>
+        <NameList
+        names={this.state.usernames}
+        progressStage={this.progressStage}
+        handleChange={this.handleChange}/>
         </div>
       );
     }

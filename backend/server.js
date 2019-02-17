@@ -120,6 +120,24 @@ app.get('/api/usernameSuggest', (req, res) => {
   );
 });
 
+// determine possible usernames based on full name
+app.get('/api/usernameSimilar', (req, res) => {
+  const names = req.query.name.split(' ');
+  let username = names[0];
+  if (names[1] !== undefined) {
+    username += '-' + names[1];
+  }
+  User.find(
+    { name: { $regex: username, $options: 'i' } },
+    (err, varToStoreResult, count) => {
+      const names = varToStoreResult.map((u) => {
+        return u.name;
+      });
+      res.json(names);
+    }
+  );
+});
+
 // get communities
 app.get('/api/community', (req, res) => {
   let query = {};
