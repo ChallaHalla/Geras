@@ -4,7 +4,7 @@ import './NavBar.css';
 
 function NavBar(currentPage) {
   return (
-    <nav className='navbar is-light'>
+    <nav className='navbar is-dark'>
       <div
         className='navbar-start navbar-brand'
         style={{ justifyContent: 'flex-start', marginRight: 'auto' }}

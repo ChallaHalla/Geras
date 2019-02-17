@@ -43,7 +43,7 @@ class EventView extends Component {
       ));
     }
     const display = (
-      <div className='hero is-fullheight is-primary'>
+      <div className='hero is-fullheight has-background-grey-light'>
         <h1>{events}</h1>
       </div>
     );

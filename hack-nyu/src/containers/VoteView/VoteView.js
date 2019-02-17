@@ -51,7 +51,7 @@ class VoteView extends Component {
 
   render() {
     const display = (
-      <div className='hero-body'>
+      <div className='hero is-fullheight has-background-grey-light'>
         <VoteDisplay event={this.state.currentEvent} />
         <VoteButton type={false} handleClick={this.handleVote} />
         <VoteButton type={true} handleClick={this.handleVote} />

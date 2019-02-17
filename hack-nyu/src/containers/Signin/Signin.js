@@ -23,7 +23,7 @@ class Signin extends Component {
   }
   render() {
     return (
-      <div>
+      <div className='hero is-fullheight has-background-grey-light'>
         <button
           onClick={() => {
             this.login();
