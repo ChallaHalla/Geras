@@ -9,7 +9,9 @@ class EventView extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:3001/api/events/published')
+    fetch('http://localhost:3001/api/events/published', {
+      credentials: 'include',
+    })
       .then((res) => res.json())
       .then((data) => {
         // data has been sucessfully fetched

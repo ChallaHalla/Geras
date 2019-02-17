@@ -8,10 +8,13 @@ const fn = path.join(__dirname, 'config.json');
 const app = express();
 const animals = require('./animals.json');
 
-
 const Community = mongoose.model('Community');
 const Event = mongoose.model('Event');
 const User = mongoose.model('User');
+
+// TEMPORARY - DEV ONLY
+app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+// REMOVE LATER
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -23,10 +26,6 @@ app.use(
     cookie: { secure: false },
   })
 );
-
-// TEMPORARY - DEV ONLY
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
-// REMOVE LATER
 
 // get users
 app.get('/api/users', (req, res) => {
@@ -63,55 +62,62 @@ app.post('/api/user', (req, res) => {
   user.save().then((user) => {
     req.session.userId = user._id;
     req.session.communityId = req.body.community._id;
-    res.json({status:"success"});
+    res.json({ status: 'success' });
   });
 });
 
 app.post('/api/login', (req, res) => {
-
   const username = req.body.username;
   const pin = req.body.pin;
 
-  User.findOne({name: username, pin: pin}, (err, varToStoreResult)=>{
-    if(varToStoreResult !== null){
+  User.findOne({ name: username, pin: pin }, (err, varToStoreResult) => {
+    if (varToStoreResult !== null) {
       req.session.userId = varToStoreResult._id;
       console.log(req.session);
-      varToStoreResult.status = "success";
+      varToStoreResult.status = 'success';
       console.log(varToStoreResult);
       res.json(varToStoreResult);
       // figure out what else to do
-    } else{
-      res.json({"status": "error"});
+    } else {
+      res.json({ status: 'error' });
     }
   });
 });
 
 app.get('/api/usernameSuggest', (req, res) => {
   console.log(req.query);
-  const names = req.query.name.split(" ");
+  const names = req.query.name.split(' ');
   let username = names[0];
-  if(names[1]!== undefined){
-    username += "-" + names[1];
+  if (names[1] !== undefined) {
+    username += '-' + names[1];
   }
 
   // console.log(name);
   const arr = new Array();
-  for(let i=0; i<3; i++){
-    arr.push(username + "-" + animals[Math.floor(Math.random() * Math.floor(235))]);
+  for (let i = 0; i < 3; i++) {
+    arr.push(
+      username + '-' + animals[Math.floor(Math.random() * Math.floor(235))]
+    );
   }
   console.log(names[0] + '-' + names[1]);
-  User.find({name: { "$regex": username, "$options": "i" }}, (err, varToStoreResult, count)=>{
-    const names = varToStoreResult.map((u)=>{
-      return u.name;
-    });
-    console.log(arr, names);
-    arr.forEach((name, index)=>{
-      if(names.indexOf(name)!== -1){
-        arr[index] = username + "-" + animals[Math.floor(Math.random() * Math.floor(235))];
-      }
-    });
-    res.json(arr);
-  });
+  User.find(
+    { name: { $regex: username, $options: 'i' } },
+    (err, varToStoreResult, count) => {
+      const names = varToStoreResult.map((u) => {
+        return u.name;
+      });
+      console.log(arr, names);
+      arr.forEach((name, index) => {
+        if (names.indexOf(name) !== -1) {
+          arr[index] =
+            username +
+            '-' +
+            animals[Math.floor(Math.random() * Math.floor(235))];
+        }
+      });
+      res.json(arr);
+    }
+  );
 });
 
 // get communities
@@ -224,23 +230,23 @@ app.post('/api/events', (req, res) => {
 //event vote
 app.post('/api/vote', (req, res) => {
   let user;
-  User.findOne({ _id: req.session.userId }, (err, varToStoreResult, count) => {
-    user = varToStoreResult;
-    let event;
+  User.findOne({ _id: req.session.userId }, (err, user, count) => {
     Event.findOne({ _id: req.body.eventId }, (err, varToStoreResult) => {
-      event = varToStoreResult;
-    }).then(() => {
-      // true is vote yes false is vote no
-      if (req.body.vote) {
-        event.yesList.push(user._id);
-      } else {
-        event.noList.push(user._id);
-      }
-      console.log(event);
-      event.save(() => {
-        res.end();
-      });
-    });
+      return varToStoreResult;
+    })
+      .then((event) => {
+        // true is vote yes false is vote no
+        if (req.body.vote) {
+          event.yesList.push(user._id);
+        } else {
+          event.noList.push(user._id);
+        }
+        console.log(event);
+        event.save(() => {
+          res.end();
+        });
+      })
+      .catch(console.log);
   });
 });
 

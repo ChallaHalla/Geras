@@ -11,7 +11,7 @@ class SignInView extends Component {
       username: '',
       pin: '',
       community: {},
-      usernames:[],
+      usernames: [],
     };
   }
 
@@ -36,7 +36,8 @@ class SignInView extends Component {
           'http://localhost:3001/api/locations?long=' +
             pos.coords.longitude +
             '&lat=' +
-            pos.coords.longitude
+            pos.coords.longitude,
+          { credentials: 'include' }
         ).then((res) => {
           res.json().then((c) => {
             console.log(c);
@@ -50,11 +51,11 @@ class SignInView extends Component {
     }
   };
 
-  getNames=()=>{
-    console.log(this.state)
-    fetch(
-      'http://localhost:3001/api/usernameSuggest?name=' + this.state.name
-    ).then((res) => {
+  getNames = () => {
+    console.log(this.state);
+    fetch('http://localhost:3001/api/usernameSuggest?name=' + this.state.name, {
+      credentials: 'include',
+    }).then((res) => {
       res.json().then((names) => {
         console.log(names);
         this.setState({
@@ -63,7 +64,7 @@ class SignInView extends Component {
         this.progressStage();
       });
     });
-  }
+  };
 
   createUser = () => {
     const body = JSON.stringify({
@@ -78,6 +79,7 @@ class SignInView extends Component {
       headers: {
         'Content-Type': 'application/json',
       },
+      credentials: 'include',
     })
       .then((res) => {
         res.json();
@@ -109,9 +111,13 @@ class SignInView extends Component {
             onChange={this.handleChange}
             name='pin'
           />
-          <button onClick={()=>{
-            this.getNames();
-          }}>Next</button>
+          <button
+            onClick={() => {
+              this.getNames();
+            }}
+          >
+            Next
+          </button>
         </div>
       );
     }
@@ -148,11 +154,15 @@ class SignInView extends Component {
     if (this.state.stage === 6) {
       return (
         <div>
-          <button onClick={()=>{
-            this.createUser();
-            this.props.history.push('/vote');
-          }
-          }> Create account </button>
+          <button
+            onClick={() => {
+              this.createUser();
+              this.props.history.push('/vote');
+            }}
+          >
+            {' '}
+            Create account{' '}
+          </button>
         </div>
       );
     } else {

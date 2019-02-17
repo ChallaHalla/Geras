@@ -10,7 +10,9 @@ class VoteView extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:3001/api/events/unpublished')
+    fetch('http://localhost:3001/api/events/unpublished', {
+      credentials: 'include',
+    })
       .then((res) => res.json())
       .then((data) => {
         // data has been sucessfully fetched
@@ -31,12 +33,14 @@ class VoteView extends Component {
       eventId: this.state.currentEvent._id,
       vote,
     };
+    console.log(data);
     fetch('http://localhost:3001/api/vote', {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
         'Content-Type': 'application/json',
       },
+      credentials: 'include',
     }).then(() => {
       console.log('vote registered!');
     });
