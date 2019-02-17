@@ -2,11 +2,13 @@ import React from 'react';
 import EventRsvpButton from '../../components/EventRsvpButton/EventRsvpButton';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
-import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
-import { faClock } from '@fortawesome/free-solid-svg-icons';
-import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
+import {
+  faMapMarkerAlt,
+  faUserCircle,
+  faUser,
+  faClock,
+  faCalendarAlt,
+} from '@fortawesome/free-solid-svg-icons';
 import './EventWidget.css';
 
 library.add(faMapMarkerAlt);
@@ -32,13 +34,15 @@ function EventWidget(props) {
           <FontAwesomeIcon icon={faClock} /> {timeReturn(e).hours}:
           {timeReturn(e).mins}&nbsp;{timeReturn(e).m}
         </p>
-        <FontAwesomeIcon icon={faMapMarkerAlt} />
-        <p className='location'>{e.location}</p>
+        <p className='location'>
+          <FontAwesomeIcon icon={faMapMarkerAlt} /> {e.location}
+        </p>
         <p className='creator'>
           <FontAwesomeIcon icon={faUserCircle} /> Hosted by {e.creator.name}
         </p>
         <p className='attendees level-left'>
-          <FontAwesomeIcon icon={faUser} /> {attendeeList(e)}
+          <FontAwesomeIcon icon={faUser} />
+          &nbsp;{attendeeList(e)}
         </p>
         {/* <button
           onClick={() => {

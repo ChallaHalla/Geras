@@ -70,6 +70,7 @@ class Signin extends Component {
       },
     }).then((res) => {res.json().then((data) => {
       console.log('state',this.state);
+      console.log(data.status);
       if(data.status !== 'error'){
          this.props.history.push('/vote');
       }
@@ -94,8 +95,8 @@ class Signin extends Component {
       // get location
       return(
         <div className= "hero is-fullheight has-background-grey-light">
-        <div className="signUpContainer">
-        <button className="button is-large is-1" onClick={()=>{this.getLocation();}}>Locate me!</button>
+        <div className="signUpContainer buttonOnly">
+        <button className="button is-large is-1 greenHov" onClick={()=>{this.getLocation();}}>Locate me!</button>
         </div>
         </div>
       );
@@ -106,11 +107,11 @@ class Signin extends Component {
         <div className="signUpContainer">
         <h1 className="title is-1">{this.state.community.name}!</h1>
         <h2 className="subtitle is-1">New York, NY 10012</h2>
-        <button className="button" onClick={()=>{
+        <button className="button greenHov" onClick={()=>{
 
           this.getNames();
         }}> Yes </button>
-        <button className="button"> Find another community </button>
+        <button className="button greenHov"> Find another community </button>
         </div>
         </div>
       );
@@ -139,7 +140,7 @@ class Signin extends Component {
           onChange={this.handleChange}
           name='pin'
         />
-        <button className="button is-large" onClick={this.signin}>Sign in</button>
+        <button className="button is-large greenHov" onClick={this.signin}>Sign in</button>
         </div>
         </div>
       );

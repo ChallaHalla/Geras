@@ -1,3 +1,14 @@
 .signUpContainer{
+  align-self: center;
   text-align: center !important;
+  margin-top: 70px !important;
+}
+.buttonOnly{
+  position: fixed !important;
+  top:100px !important;
+}
+
+.greenHov:hover{
+  background-color: green!important;
+  color:white !important;
 }
