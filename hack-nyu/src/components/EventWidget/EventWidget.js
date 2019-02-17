@@ -14,9 +14,9 @@ library.add(faUser);
 library.add(faClock);
 library.add(faCalendarAlt);
 
+
 function EventWidget(props) {
   const e = props.event;
-
   return (
     <div className='eventWidget card'>
       <header className='card-header'>
@@ -40,6 +40,7 @@ function EventWidget(props) {
         <p className='attendees'>
           <FontAwesomeIcon icon={faUser} /> {attendeeList(e)}
         </p>
+        <button onClick={()=>{props.addGuest(props.event)}}> RSVP </button>
         {e.image && <img src={e.image} className='previewImage' alt='Event' />}
       </div>
     </div>
