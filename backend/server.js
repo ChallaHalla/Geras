@@ -58,11 +58,11 @@ app.post('/api/user', (req, res) => {
     communities: [req.body.community],
     events: [],
   });
-  res.json({});
-  // user.save().then((user) => {
-  //   req.session.userId = user._id;
-  //   res.end();
-  // });
+  user.save().then((user) => {
+    req.session.userId = user._id;
+    req.session.communityId = req.body.community._id;
+    res.end();
+  });
 });
 
 app.post('/api/login', (req, res) => {
