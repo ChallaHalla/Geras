@@ -35,26 +35,44 @@ class EventView extends Component {
         });
       })
       .catch(console.log);
+
+    fetch('http://localhost:3001/api/me', {
+      credentials: 'include',
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        this.setState({
+          me: data.id,
+        });
+      });
   }
-  addGuest= (event) => {
-    const body = JSON.stringify({eventId: event._id});
+  addGuest = (event) => {
+    const body = JSON.stringify({ eventId: event._id });
     fetch('http://localhost:3001/api/event/addGuest', {
       method: 'POST',
       body: body,
-      credentials:'include',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
       },
-    }).then((res) => {res.json().then((data) => {
-      console.log('state',this.state);
-    });});
-  }
+    }).then((res) => {
+      res.json().then((data) => {
+        console.log('state', this.state);
+        this.componentDidMount();
+      });
+    });
+  };
 
   render() {
     let events = false;
     if (this.state.events) {
       events = this.state.events.map((e) => (
-        <EventWidget event={e} key={e._id} addGuest={this.addGuest}/>
+        <EventWidget
+          event={e}
+          key={e._id}
+          addGuest={this.addGuest}
+          me={this.state.me}
+        />
       ));
     }
     const display = (

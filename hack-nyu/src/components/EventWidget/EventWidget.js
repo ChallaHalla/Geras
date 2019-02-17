@@ -1,4 +1,5 @@
 import React from 'react';
+import EventRsvpButton from '../../components/EventRsvpButton/EventRsvpButton';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
@@ -13,7 +14,6 @@ library.add(faUserCircle);
 library.add(faUser);
 library.add(faClock);
 library.add(faCalendarAlt);
-
 
 function EventWidget(props) {
   const e = props.event;
@@ -34,14 +34,33 @@ function EventWidget(props) {
         </p>
         <FontAwesomeIcon icon={faMapMarkerAlt} />
         <p className='location'>{e.location}</p>
-        <p className='creator level-left'>
-          Created by  <FontAwesomeIcon icon={faUserCircle} />  {e.creator.name}
+        <p className='creator'>
+          <FontAwesomeIcon icon={faUserCircle} /> Hosted by {e.creator.name}
         </p>
         <p className='attendees level-left'>
           <FontAwesomeIcon icon={faUser} /> {attendeeList(e)}
         </p>
-        <button className='button is-primary' onClick={()=>{props.addGuest(props.event)}}> RSVP </button>
+        {/* <button
+          onClick={() => {
+            props.addGuest(props.event);
+          }}
+        >
+          {' '}
+          RSVP{' '}
+        </button> */
+        <EventRsvpButton
+          event={props.event}
+          me={props.me}
+          handleClick={props.addGuest}
+        />
         {e.image && <img src={e.image} className='previewImage' alt='Event' />}
+        {e.image && (
+          <img
+            src={e.image}
+            className='previewImage image is-1by1'
+            alt='Event'
+          />
+        )}
       </div>
     </div>
   );
