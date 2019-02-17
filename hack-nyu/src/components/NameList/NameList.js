@@ -7,8 +7,12 @@ class NameList extends Component{
         const names =["User1 ","User2 ","User3 ","User4 "]
         return (
             <div>
-                <h1>Pick a username!</h1>
-                <h1>{names}</h1>
+            {names.map((n)=>{
+              return <button name="username" value={n} onClick={(e)=>{
+                this.props.progressStage();
+                this.props.handleChange(e);
+              }}>{n}</button>;
+            })}
             </div>
         )
     }

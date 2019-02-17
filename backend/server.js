@@ -52,15 +52,17 @@ app.get('/api/user', (req, res) => {
 
 //create users
 app.post('/api/user', (req, res) => {
+  console.log(req);
   const user = new User({
-    name: req.body.name,
+    name: req.body.username,
     communities: [req.body.community],
     events: [],
   });
-  user.save().then((user) => {
-    req.session.userId = user._id;
-    res.end();
-  });
+  res.json({});
+  // user.save().then((user) => {
+  //   req.session.userId = user._id;
+  //   res.end();
+  // });
 });
 
 app.post('/api/login', (req, res) => {
@@ -241,11 +243,7 @@ app.post('/api/event/addGuest', (req, res) => {
 });
 
 // temporary route to create a cookie on the browser
-<<<<<<< Updated upstream
 app.get('/api/session', (req, res) => {
-=======
-app.get('/api/cookie', (req, res) => {
->>>>>>> Stashed changes
   console.log(req.session);
   res.json(req.session);
 });

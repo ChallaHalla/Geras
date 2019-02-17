@@ -10,13 +10,6 @@ function SignUp(props) {
         onChange={props.handleChange}
         name='name'
       />
-      <h2>Pin:</h2>
-      <input
-        type='password'
-        value={props.pin}
-        onChange={props.handleChange}
-        name='pin'
-      />
       <br />
       <button type='button' onClick={props.progressStage}>
         Next

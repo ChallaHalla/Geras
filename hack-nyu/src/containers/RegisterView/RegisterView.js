@@ -9,7 +9,9 @@ class SignInView extends Component {
     this.state = {
       stage: 1,
       name: '',
+      username: '',
       pin: '',
+      community: {},
     };
   }
 
@@ -27,10 +29,42 @@ class SignInView extends Component {
     });
   };
 
-  render() {
-    if (this.state.stage === 0) {
-      return <ChooseCommunity />;
+  getLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((pos)=>{
+        fetch('http://localhost:3001/api/locations?long='+pos.coords.longitude+'&lat='+pos.coords.longitude).then((res) => {
+          res.json().then((c)=>{
+            console.log(c);
+            this.setState({
+              community: c,
+            });
+            this.progressStage();
+          });
+        });
+      });
     }
+  };
+
+  createUser = () => {
+    const body = JSON.stringify({
+      "username": this.state.username,
+      "community": this.state.community,
+      "pin": this.state.pin,
+    });
+    console.log('body', body);
+    fetch('http://localhost:3001/api/user', {
+      method: 'POST',
+      body: body,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then((res) => {res.json();}).then((data) => {
+      console.log('state',this.state);
+      console.log('here',data);
+    });
+  };
+
+  render() {
     if (this.state.stage === 1) {
       return (
         <SignUp
@@ -41,8 +75,51 @@ class SignInView extends Component {
         />
       );
     }
-    if (this.state.stage === 2) {
-      return <NameList />;
+    if(this.state.stage === 2){
+      return(
+        <div>
+        <h2>Pin:</h2>
+        <input
+          type='password'
+          value={this.state.pin}
+          onChange={this.handleChange}
+          name='pin'
+        />
+        <button onClick={this.progressStage}>Next</button>
+        </div>
+      );
+    }
+    if (this.state.stage === 3) {
+      return <NameList progressStage={this.progressStage} handleChange={this.handleChange}/>;
+    }
+    if (this.state.stage === 4){
+      return (
+        <button onClick={()=>{this.getLocation(); }}>Locate me!</button>
+      );
+    }
+    if (this.state.stage === 5){
+      return (
+        <div>
+        <h1>{this.state.community.name}!</h1>
+        <h2>New York, NY 10012</h2>
+        <button onClick={this.progressStage}> Yes </button>
+        <button> Find another community </button>
+        </div>
+      );
+    }
+    if (this.state.stage === 6){
+      return (
+        <div>
+        <button onClick={this.createUser}> Create account </button>
+        </div>
+      );
+    }
+    else{
+      return (
+        <div>
+        Done
+        </div>
+      );
     }
   }
 }
