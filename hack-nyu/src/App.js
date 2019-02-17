@@ -3,6 +3,8 @@ import { Router, Route, Switch } from 'react-router';
 import VoteView from './containers/VoteView/VoteView';
 import EventView from './containers/EventView/EventView';
 import { createBrowserHistory } from 'history';
+import SignInView from './containers/SignInView/SignInView';
+import NamesList from './components/NameList/NameList';
 
 class App extends Component {
   render() {
@@ -12,6 +14,7 @@ class App extends Component {
         <Switch>
           <Route exact path='/vote' component={VoteView} />
           <Route exact path='/events' component={EventView} />
+          <Route exact path='/register' component={SignInView}/>
         </Switch>
       </div>
     );
