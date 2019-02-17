@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import VoteButton from '../../components/VoteButton/VoteButton';
-import VoteDisplay from '../../components/VoteDisplay/VoteDisplay';
-import VoteLoader from '../../components/VoteLoader/VoteLoader';
 
 class Signin extends Component {
   constructor(props) {
@@ -9,22 +6,31 @@ class Signin extends Component {
     this.state = {};
     this.login = this.login.bind(this);
   }
-  login(){
+  login() {
     fetch('http://localhost:3001/api/login', {
       method: 'POST',
-      body: JSON.stringify({"username":"creator", "pin":"1234"}),
+      body: JSON.stringify({ username: 'creator', pin: '1234' }),
       headers: {
         'Content-Type': 'application/json',
       },
-    }).then((res) => {res.json();}).then((data) => {
-      console.log(data);
-    });
+    })
+      .then((res) => {
+        res.json();
+      })
+      .then((data) => {
+        console.log(data);
+      });
   }
   render() {
-    return(
+    return (
       <div>
-      <button onClick={()=>{this.login(); }}/>
-      </div>)
+        <button
+          onClick={() => {
+            this.login();
+          }}
+        />
+      </div>
+    );
   }
 }
 export default Signin;

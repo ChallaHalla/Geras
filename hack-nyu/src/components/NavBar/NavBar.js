@@ -1,13 +1,28 @@
 import React from 'react';
-import './NavBar.css';
+import { Link } from 'react-router-dom';
+// import './NavBar.css';
 
 function NavBar(currentPage) {
   return (
-    <div className='navBar'>
-      <a href='/events'>Events Page</a>
-      <a href='/vote'> Vote Page</a>
+    <nav className='navbar is-light'>
+      <div className='navbar-brand'>
+        <h1 className='navbar-item'>Geriactive</h1>
+      </div>
+      <div className='navbar-end'>
+        <div className='navbar-item'>
+          <div className='buttons'>
+            <Link className='button is-link' to='/events'>
+              Events Page
+            </Link>
+            <Link className='button is-link' to='/vote'>
+              Vote Page
+            </Link>
+          </div>
+        </div>
+      </div>
+
       <img src='' alt='Logo' style={{ display: 'none' }} />
-    </div>
+    </nav>
   );
 }
 export default NavBar;

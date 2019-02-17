@@ -12,10 +12,13 @@ library.add(faTimes);
 function VoteButton(props) {
   const icon = props.type ? 'check' : 'times';
 
-
-
   return (
-    <button id={icon} className="vote" type='button' onClick={() => props.handleClick(props.type)}>
+    <button
+      id={icon}
+      className='vote'
+      type='button'
+      onClick={() => props.handleClick(props.type)}
+    >
       <FontAwesomeIcon icon={icon} />
     </button>
   );

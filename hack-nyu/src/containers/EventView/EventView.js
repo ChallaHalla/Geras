@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Loader from '../../components/Loader/Loader';
 import EventWidget from '../../components/EventWidget/EventWidget';
-import NavBar from '../../components/NavBar/NavBar';
 
 class EventView extends Component {
   constructor(props) {
@@ -10,7 +9,6 @@ class EventView extends Component {
   }
 
   componentDidMount() {
-  
     fetch('http://localhost:3001/api/events/published')
       .then((res) => res.json())
       .then((data) => {
@@ -45,8 +43,7 @@ class EventView extends Component {
       ));
     }
     const display = (
-      <div>
-        <NavBar />
+      <div className='hero is-fullheight is-primary'>
         <h1>{events}</h1>
       </div>
     );
