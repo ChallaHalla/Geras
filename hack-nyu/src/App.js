@@ -7,6 +7,7 @@ import { createBrowserHistory } from 'history';
 import Register from './containers/Register/Register';
 import NavBar from './components/NavBar/NavBar';
 import Signin from './containers/Signin/Signin';
+import PollView from './containers/PollView/PollView';
 import 'bulma/css/bulma.min.css';
 class App extends Component {
   render() {
@@ -18,6 +19,7 @@ class App extends Component {
         <Route exact path='/events' component={EventView} />
         <Route exact path='/register' component={Register} />
         <Route exact path='/signin' component={Signin} />
+        <Route exact path='/dash' component={PollView} />
       </div>
     );
     return (
