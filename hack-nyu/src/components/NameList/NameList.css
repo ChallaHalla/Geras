@@ -1,0 +1,14 @@
+button{
+  margin: 10px !important;
+}
+button:hover{
+  background-color:green !important;
+  color:white !important;
+}
+.nameButton{
+
+}
+
+.is-fullwidth{
+  max-width: 70vw;
+}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SignUp from '../../components/SignUp/SignUp.js';
 import NameList from '../../components/NameList/NameList';
+import './Signin.css'
 
 class Signin extends Component {
   constructor(props) {
@@ -79,12 +80,13 @@ class Signin extends Component {
     if (this.state.stage === 1) {
       return (
         <div className = "hero is-fullheight has-background-grey-light">
-        <h1> Sign in </h1>
+        <div className="signUpContainer">
         <SignUp
           name={this.state.name}
           handleChange={this.handleChange}
           progressStage={this.progressStage}
         />
+        </div>
         </div>
       );
     }
@@ -92,44 +94,53 @@ class Signin extends Component {
       // get location
       return(
         <div className= "hero is-fullheight has-background-grey-light">
-        <button onClick={()=>{this.getLocation();}}>Locate me!</button>
+        <div className="signUpContainer">
+        <button className="button is-large is-1" onClick={()=>{this.getLocation();}}>Locate me!</button>
+        </div>
         </div>
       );
     }
     if (this.state.stage === 3) {
       return (
         <div className= "hero is-fullheight has-background-grey-light">
-        <h1>{this.state.community.name}!</h1>
-        <h2>New York, NY 10012</h2>
-        <button onClick={()=>{
+        <div className="signUpContainer">
+        <h1 className="title is-1">{this.state.community.name}!</h1>
+        <h2 className="subtitle is-1">New York, NY 10012</h2>
+        <button className="button" onClick={()=>{
 
           this.getNames();
         }}> Yes </button>
-        <button> Find another community </button>
+        <button className="button"> Find another community </button>
+        </div>
         </div>
       );
     }
     if (this.state.stage === 4){
       return (
         <div className= "hero is-fullheight has-background-grey-light">
+        <div className="signUpContainer">
         <NameList
         names={this.state.usernames}
         progressStage={this.progressStage}
         handleChange={this.handleChange}/>
+        </div>
         </div>
       );
     }
     if (this.state.stage === 5){
       return (
         <div className= "hero is-fullheight has-background-grey-light">
-        <h2>Pin:</h2>
+        <div className="signUpContainer">
+        <h1 className="title is-1">Pin:</h1>
         <input
+          className="input is-large"
           type='password'
           value={this.state.pin}
           onChange={this.handleChange}
           name='pin'
         />
-        <button onClick={this.signin}>Sign in</button>
+        <button className="button is-large" onClick={this.signin}>Sign in</button>
+        </div>
         </div>
       );
     }
