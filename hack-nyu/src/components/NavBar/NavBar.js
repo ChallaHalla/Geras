@@ -1,13 +1,13 @@
 import React from 'react';
-import "./NavBar.css";
+import './NavBar.css';
 
-function NavBar(currentPage){
-    return (    
-        <div className= 'navBar'>
-            <a href="/events">Events Page</a>
-            <a href ="/vote"> Vote Page</a>
-            <img src ="" />
-        </div>
-    )
+function NavBar(currentPage) {
+  return (
+    <div className='navBar'>
+      <a href='/events'>Events Page</a>
+      <a href='/vote'> Vote Page</a>
+      <img src='' alt='Logo' />
+    </div>
+  );
 }
 export default NavBar;

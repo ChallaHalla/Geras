@@ -68,14 +68,14 @@ app.post('/api/user', (req, res) => {
 app.post('/api/login', (req, res) => {
   const username = req.body.username;
   const pin = req.body.pin;
-  User.findOne({name: username, pin: pin}, (err, varToStoreResult)=>{
-    if(varToStoreResult !== null){
+  User.findOne({ name: username, pin: pin }, (err, varToStoreResult) => {
+    if (varToStoreResult !== null) {
       req.session.userId = varToStoreResult._id;
       console.log(req.session);
       res.json(varToStoreResult);
       // figure out what else to do
-    } else{
-      res.json({"error": "invalid username pass"});
+    } else {
+      res.json({ error: 'invalid username pass' });
     }
   });
 });
@@ -133,9 +133,8 @@ app.get('/api/events', (req, res) => {
 
 app.get('/api/events/published', (req, res) => {
   Event.find({ published: true })
+    .ne('noList', req.session.userId)
     .populate('attendees')
-    .populate('yesList')
-    .populate('noList')
     .populate('creator')
     .exec((err, varToStoreResult) => {
       res.json(varToStoreResult);
@@ -144,10 +143,8 @@ app.get('/api/events/published', (req, res) => {
 
 app.get('/api/events/unpublished', (req, res) => {
   Event.find({ published: false })
-    .populate('attendees')
-    .populate('yesList')
-    .populate('noList')
-    .populate('creator')
+    .ne('yesList', req.session.userId)
+    .ne('noList', req.session.userId)
     .exec((err, varToStoreResult) => {
       res.json(varToStoreResult);
     });
@@ -156,7 +153,6 @@ app.get('/api/events/unpublished', (req, res) => {
 // get events
 app.get('/api/event', (req, res) => {
   let query = { _id: req.query.id };
-  let event;
   if (req.query.id !== undefined) {
     Event.findOne(query)
       .populate('attendees')
@@ -259,15 +255,15 @@ app.get('/api/locations', (req, res) => {
   const userLat = parseFloat(req.query.lat);
   const userLong = parseFloat(req.query.long);
   let distances;
-  Community.find({},(err, varToStoreResult) =>{
-    distances = varToStoreResult.map((c)=>{
+  Community.find({}, (err, varToStoreResult) => {
+    distances = varToStoreResult.map((c) => {
       return haversine(c.longitude, c.latitude, userLong, userLat);
     });
     const min = Math.max.apply(null, distances);
     const index = distances.indexOf(min);
     // console.log("lol",varToStoreResult[index]);
     return res.json(varToStoreResult[index]);
-  })
+  });
 });
 
 // serve the react build as a static app
@@ -278,7 +274,7 @@ app.get('*', (req, res) => {
 
 function haversine(long1, lati1, long2, lati2) {
   function toRad(x) {
-    return x * Math.PI / 180;
+    return (x * Math.PI) / 180;
   }
   var lon1 = parseFloat(long1);
   var lat1 = parseFloat(lati1);
@@ -290,12 +286,15 @@ function haversine(long1, lati1, long2, lati2) {
 
   var x1 = lat2 - lat1;
   var dLat = toRad(x1);
-  console.log("x", long2, lati2, long1, lat1);
+  console.log('x', long2, lati2, long1, lat1);
   var x2 = lon2 - lon1;
-  var dLon = toRad(x2)
-  var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
-    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  var dLon = toRad(x2);
+  var a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(toRad(lat1)) *
+      Math.cos(toRad(lat2)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
   var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   var d = R * c;
 
