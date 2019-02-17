@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import VoteButton from '../../components/VoteButton/VoteButton';
 import VoteDisplay from '../../components/VoteDisplay/VoteDisplay';
 import Loader from '../../components/Loader/Loader';
+import "./VoteView.css"
 
 class VoteView extends Component {
   constructor(props) {
@@ -57,7 +58,7 @@ class VoteView extends Component {
 
     const display = (
       <div className='hero is-fullheight has-background-grey-light'>
-        <VoteDisplay event={this.state.currentEvent} />
+        <VoteDisplay className="event" event={this.state.currentEvent} />
         <VoteButton type={false} handleClick={this.handleVote} />
         <VoteButton type={true} handleClick={this.handleVote} />
       </div>

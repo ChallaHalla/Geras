@@ -1,10 +1,10 @@
 import React from 'react';
-// import './VoteDisplay.css';
+import './VoteDisplay.css';
 
 // Vote Display expects a prop called EventName, which displays the event at the top of the stack
 function VoteDisplay(props) {
   return (
-    <h1 className='EventVote'>
+    <h1 className='EventVote title is-1 '>
       {props.event ? props.event.name : 'No event...'}
     </h1>
   );

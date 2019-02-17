@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Loader from '../../components/Loader/Loader';
 import EventWidget from '../../components/EventWidget/EventWidget';
+import "./EventView.css"
 
 class EventView extends Component {
   constructor(props) {
@@ -76,7 +77,7 @@ class EventView extends Component {
       ));
     }
     const display = (
-      <div className='hero is-fullheight has-background-grey-light'>
+      <div className='hero is-fullheight has-background-grey-light eventContainer'>
         <h1>{events}</h1>
       </div>
     );
