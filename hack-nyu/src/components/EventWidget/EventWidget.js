@@ -7,6 +7,7 @@ function EventWidget(props) {
   return (
     <div className='eventWidget'>
       <h2 className='name'>{e.name}</h2>
+      <p className='description'>{e.desc}</p>
       <p className='date'>
         {e.date.getMonth() + 1}/{e.date.getDay()}/{e.date.getFullYear()}
       </p>
@@ -14,6 +15,7 @@ function EventWidget(props) {
         {timeReturn(e).hours}:{timeReturn(e).mins}&nbsp;{timeReturn(e).m}
       </p>
       <p className='location'>{e.location}</p>
+      <p className='creator'>Created by {e.creator.name}</p>
       <p className='attendees'>{attendeeList(e)}</p>
       {e.image && <img src={e.image} className='previewImage' />}
     </div>
