@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import { Router, Route, Switch } from 'react-router';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import VoteView from './containers/VoteView/VoteView';
 import EventView from './containers/EventView/EventView';
 import { createBrowserHistory } from 'history';
@@ -20,6 +20,7 @@ class App extends Component {
         <Route exact path='/register' component={Register} />
         <Route exact path='/signin' component={Signin} />
         <Route exact path='/dash' component={PollView} />
+        <Redirect exact path='/' to='/register' />
       </div>
     );
     return (
