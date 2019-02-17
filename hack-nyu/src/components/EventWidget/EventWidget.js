@@ -22,8 +22,8 @@ function EventWidget(props) {
     <div className='eventWidget'>
       <h2 className='name'>{e.name}</h2>
       <p className='description'>{e.desc}</p>
-      <FontAwesomeIcon icon = {faCalendarAlt} /> <p className='date'>
-      <FontAwesomeIcon icon = {faClock} />  {e.date.getMonth() + 1}/{e.date.getDay()}/{e.date.getFullYear()}
+      <p className='date'>
+      <FontAwesomeIcon icon = {faCalendarAlt} />  {e.date.getMonth() + 1}/{e.date.getDay()}/{e.date.getFullYear()}
       </p>
       <p className='time'>
       <FontAwesomeIcon icon = {faClock} /> {timeReturn(e).hours}:{timeReturn(e).mins}&nbsp;{timeReturn(e).m}
