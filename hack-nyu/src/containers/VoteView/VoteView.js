@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import VoteButton from '../../components/VoteButton/VoteButton';
 import VoteDisplay from '../../components/VoteDisplay/VoteDisplay';
 import Loader from '../../components/Loader/Loader';
+import NavBar from '../../components/NavBar/NavBar';
 
 class VoteView extends Component {
   constructor(props) {
@@ -52,6 +53,7 @@ class VoteView extends Component {
   render() {
     const display = (
       <div>
+        <NavBar />
         <VoteDisplay event={this.state.currentEvent} />
         <VoteButton type={false} handleClick={this.handleVote} />
         <VoteButton type={true} handleClick={this.handleVote} />
