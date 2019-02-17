@@ -1,9 +1,7 @@
 .navbar {
   display: flex;
 }
-body{
-  padding-top:90px;
-}
+
 .navbar div.navbar-start {
   justify-content: 'flex-start';
   margin-right: 'auto';

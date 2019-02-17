@@ -40,13 +40,8 @@ function EventWidget(props) {
         <p className='attendees level-left'>
           <FontAwesomeIcon icon={faUser} /> {attendeeList(e)}
         </p>
-<<<<<<< Updated upstream
-        <button onClick={()=>{props.addGuest(props.event)}}> RSVP </button>
+        <button className='button is-primary' onClick={()=>{props.addGuest(props.event)}}> RSVP </button>
         {e.image && <img src={e.image} className='previewImage' alt='Event' />}
-=======
-        <button className='button is-primary'>Sign Up</button>
-        {e.image && <img src={e.image} className='previewImage image is-1by1' alt='Event' />}
->>>>>>> Stashed changes
       </div>
     </div>
   );
