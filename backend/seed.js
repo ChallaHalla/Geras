@@ -17,6 +17,8 @@ User.remove({}, function(err) {
 const community = new Community({
   name: 'test community',
   desc: 'test community descr',
+  longitude: 40.806889,
+  latitude: -73.960850,
   users: [],
   events: [],
 });
@@ -108,3 +110,45 @@ community.save(() => {
     });
   });
 });
+const tandon = new Community({
+  name: 'NYU Tandon home for seniors',
+  desc: 'apparently not a university?',
+  longitude: 40.693710,
+  latitude: -73.987221,
+  users: [],
+  events: [],
+});
+tandon.save();
+const stern = new Community({
+  name: 'Stern Retirement Community',
+  desc: 'Old snake ppl',
+  longitude: 40.729010,
+  latitude: -73.996470,
+  users: [],
+  events: [],
+});
+stern.save();
+const columbia = new Community({
+  name: 'Columbia Senior Care',
+  desc: 'Ivy league babbys',
+  longitude: 40.806889,
+  latitude: -73.960850,
+  users: [],
+  events: [],
+});
+columbia.save();
+const user5Id = '5c6830bcc3c6c6a7e794ad0c';
+
+
+for (let i = 1; i <= 12; i++) {
+  const e = new Event({
+    name: `Test Event ${i}`,
+    desc: 'This is a test event.',
+    published: false,
+    creator: user5Id,
+    yesList: [],
+    noList: [],
+    attendees: [],
+  });
+  e.save();
+}

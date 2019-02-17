@@ -18,6 +18,8 @@ if (process.env.NODE_ENV === 'development') {
 const communitySchema = new mongoose.Schema({
   name: String,
   desc: String,
+  latitude: Number,
+  longitude: Number,
   users: [
     {
       type: ObjectId,

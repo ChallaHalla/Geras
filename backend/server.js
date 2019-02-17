@@ -63,10 +63,26 @@ app.post('/api/user', (req, res) => {
   });
 });
 
+app.post('/api/login', (req, res) => {
+  const username = req.body.username;
+  const pin = req.body.pin;
+  User.findOne({name: username, pin: pin}, (err, varToStoreResult)=>{
+    if(varToStoreResult !== null){
+      req.session.userId = varToStoreResult._id;
+      console.log(req.session);
+      res.json(varToStoreResult);
+      // figure out what else to do
+    } else{
+      res.json({"error": "invalid username pass"});
+    }
+  });
+});
+
 // get communities
 app.get('/api/community', (req, res) => {
   let query = {};
   Community.find(query, (err, varToStoreResult, count) => {
+    console.log(varToStoreResult);
     res.json(varToStoreResult);
   });
 });
@@ -225,7 +241,11 @@ app.post('/api/event/addGuest', (req, res) => {
 });
 
 // temporary route to create a cookie on the browser
+<<<<<<< Updated upstream
 app.get('/api/session', (req, res) => {
+=======
+app.get('/api/cookie', (req, res) => {
+>>>>>>> Stashed changes
   console.log(req.session);
   res.json(req.session);
 });
@@ -235,10 +255,54 @@ app.get('/api/session/:key/:val', (req, res) => {
   res.json(req.session);
 });
 
+//get closest location
+app.get('/api/locations', (req, res) => {
+  console.log('req', req.query);
+  const userLat = parseFloat(req.query.lat);
+  const userLong = parseFloat(req.query.long);
+  let distances;
+  Community.find({},(err, varToStoreResult) =>{
+    distances = varToStoreResult.map((c)=>{
+      return haversine(c.longitude, c.latitude, userLong, userLat);
+    });
+    const min = Math.max.apply(null, distances);
+    const index = distances.indexOf(min);
+    // console.log("lol",varToStoreResult[index]);
+    return res.json(varToStoreResult[index]);
+  })
+});
+
 // serve the react build as a static app
 app.get('*', express.static('../hack-nyu/build'));
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../hack-nyu/build/index.html'));
 });
+
+function haversine(long1, lati1, long2, lati2) {
+  function toRad(x) {
+    return x * Math.PI / 180;
+  }
+  var lon1 = parseFloat(long1);
+  var lat1 = parseFloat(lati1);
+
+  var lon2 = parseFloat(long2);
+  var lat2 = parseFloat(lati2);
+
+  var R = 6371; // km
+
+  var x1 = lat2 - lat1;
+  var dLat = toRad(x1);
+  console.log("x", long2, lati2, long1, lat1);
+  var x2 = lon2 - lon1;
+  var dLon = toRad(x2)
+  var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  var d = R * c;
+
+  d /= 1.60934;
+  return d;
+}
 
 app.listen(3001);
