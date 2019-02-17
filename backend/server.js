@@ -18,11 +18,12 @@ app.use(
     secret: process.env.SESSION_SECRET || 'local session secret',
     resave: false,
     saveUninitialized: true,
+    cookie: { secure: false },
   })
 );
 
 // TEMPORARY - DEV ONLY
-app.use(cors());
+app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 // REMOVE LATER
 
 // get users
@@ -224,11 +225,12 @@ app.post('/api/event/addGuest', (req, res) => {
 });
 
 // temporary route to create a cookie on the browser
-app.get('/api/cookie', (req, res) => {
+app.get('/api/session', (req, res) => {
+  console.log(req.session);
   res.json(req.session);
 });
 
-app.get('/api/cookie/:key/:val', (req, res) => {
+app.get('/api/session/:key/:val', (req, res) => {
   req.session[req.params.key] = req.params.val;
   res.json(req.session);
 });
