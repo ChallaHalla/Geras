@@ -17,8 +17,8 @@ User.remove({}, function(err) {
 const community = new Community({
   name: 'test community',
   desc: 'test community descr',
-  longitude: 40.806889,
-  latitude: -73.960850,
+  longitude: 800.806889,
+  latitude: -800.960850,
   users: [],
   events: [],
 });

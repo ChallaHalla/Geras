@@ -62,7 +62,7 @@ app.post('/api/user', (req, res) => {
   });
   user.save().then((user) => {
     req.session.userId = user._id;
-    req.session.communityId = req.body.community._id;
+    req.session.communityId = req.body.community;
     res.json({ status: 'success' });
   });
 });
@@ -328,13 +328,18 @@ app.get('/api/locations', (req, res) => {
   const userLong = parseFloat(req.query.long);
   let distances;
   Community.find({}, (err, varToStoreResult) => {
-    distances = varToStoreResult.map((c) => {
-      return haversine(c.longitude, c.latitude, userLong, userLat);
+    distances = varToStoreResult.map((c,index) => {
+      return {
+        dist: haversine(c.longitude, c.latitude, userLong, userLat),
+        community: c
+      };
     });
-    const min = Math.max.apply(null, distances);
-    const index = distances.indexOf(min);
+    distances.sort(function(a, b) {
+    return a.dist > b.dist;
+  });
     // console.log("lol",varToStoreResult[index]);
-    return res.json(varToStoreResult[index]);
+    console.log(distances);
+    return res.json(distances);
   });
 });
 

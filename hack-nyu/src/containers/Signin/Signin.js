@@ -10,6 +10,10 @@ class Signin extends Component {
       stage: 1,
       username: '',
       pin: '',
+      communities: [],
+      descriptions: [],
+      usernames: [],
+      ids: [],
     };
   }
 
@@ -32,8 +36,9 @@ class Signin extends Component {
       navigator.geolocation.getCurrentPosition((pos)=>{
         fetch('http://localhost:3001/api/locations?long='+pos.coords.longitude+'&lat='+pos.coords.longitude).then((res) => {
           res.json().then((c)=>{
+            console.log(c);
             this.setState({
-              community: c,
+              communities: c,
             });
             this.progressStage();
           });
@@ -77,6 +82,12 @@ class Signin extends Component {
     });})
   };
 
+  nextCommunity = () => {
+    this.setState({
+      cIndex: (this.state.cIndex +1)%(this.state.communities.length),
+    });
+  }
+
   render() {
     if (this.state.stage === 1) {
       return (
@@ -111,7 +122,7 @@ class Signin extends Component {
 
           this.getNames();
         }}> Yes </button>
-        <button className="button greenHov"> Find another community </button>
+        <button className="button greenHov" onClick={this.nextCommunity}> Find another community </button>
         </div>
         </div>
       );
