@@ -11,8 +11,10 @@ class SignInView extends Component {
       name: '',
       username: '',
       pin: '',
-      community: {},
+      communities: [],
+      descriptions: [],
       usernames: [],
+      ids: [],
     };
   }
 
@@ -40,10 +42,23 @@ class SignInView extends Component {
             pos.coords.longitude,
           { credentials: 'include' }
         ).then((res) => {
+          console.log(res);
           res.json().then((c) => {
-            console.log(c);
+            const communities = c.map((comm)=>{
+              return comm.community.name;
+            });
+            const descriptions = c.map((comm)=>{
+              return comm.community.desc;
+            });
+            const ids = c.map((comm)=>{
+              return comm.community._id;
+            });
+            console.log('communities',communities);
             this.setState({
-              community: c,
+              communities: communities,
+              descriptions: descriptions,
+              cIndex:0,
+              ids: ids,
             });
             this.progressStage();
           });
@@ -51,6 +66,12 @@ class SignInView extends Component {
       });
     }
   };
+
+  nextCommunity = () => {
+    this.setState({
+      cIndex: (this.state.cIndex +1)%(this.state.communities.length),
+    });
+  }
 
   getNames = () => {
     console.log(this.state);
@@ -70,7 +91,7 @@ class SignInView extends Component {
   createUser = () => {
     const body = JSON.stringify({
       username: this.state.username,
-      community: this.state.community,
+      community: this.state.ids[this.state.cIndex],
       pin: this.state.pin,
     });
     console.log('body', body);
@@ -155,10 +176,11 @@ class SignInView extends Component {
     if (this.state.stage === 5) {
       return (
         <div className="regContainer">
-          <h1 className="title is-1">{this.state.community.name}!</h1>
+          <h1 className="title is-1">{this.state.communities[this.state.cIndex]}!</h1>
+          <h2 className="subtitle is-1">{this.state.descriptions[this.state.cIndex]}</h2>
           <h2 className="subtitle is-1">New York, NY 10012</h2>
           <button className="button greenHov" onClick={this.progressStage}> Yes </button>
-          <button className="button greenHov"> Find another community </button>
+          <button className="button greenHov" onClick={this.nextCommunity}> Find another community </button>
         </div>
       );
     }
