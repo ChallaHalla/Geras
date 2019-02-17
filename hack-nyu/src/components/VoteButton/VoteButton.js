@@ -2,6 +2,7 @@ import React from 'react';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
+import './VoteButton.css';
 
 // register fontawesome icons with the library
 library.add(faCheck);
@@ -11,15 +12,11 @@ library.add(faTimes);
 function VoteButton(props) {
   const icon = props.type ? 'check' : 'times';
 
-  // temporary styling
-  const style = {
-    fontSize: 80,
-    padding: 50,
-  };
+
 
   return (
-    <button type='button' onClick={() => props.handleClick(props.type)}>
-      <FontAwesomeIcon icon={icon} style={style} />
+    <button id={icon} className="vote" type='button' onClick={() => props.handleClick(props.type)}>
+      <FontAwesomeIcon icon={icon} />
     </button>
   );
 }
