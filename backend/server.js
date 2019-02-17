@@ -71,8 +71,9 @@ app.post('/api/login', (req, res) => {
 
   const username = req.body.username;
   const pin = req.body.pin;
-
+  console.log(username, pin);
   User.findOne({name: username, pin: pin}, (err, varToStoreResult)=>{
+    console.log(varToStoreResult);
     if(varToStoreResult !== null){
       req.session.userId = varToStoreResult._id;
       console.log(req.session);
@@ -111,6 +112,22 @@ app.get('/api/usernameSuggest', (req, res) => {
       }
     });
     res.json(arr);
+  });
+});
+
+
+// determine possible usernames based on full name
+app.get('/api/usernameSimilar', (req, res) => {
+  const names = req.query.name.split(" ");
+  let username = names[0];
+  if(names[1]!== undefined){
+    username += "-" + names[1];
+  }
+  User.find({name: { "$regex": username, "$options": "i" }}, (err, varToStoreResult, count)=>{
+    const names = varToStoreResult.map((u)=>{
+      return u.name;
+    });
+    res.json(names);
   });
 });
 
