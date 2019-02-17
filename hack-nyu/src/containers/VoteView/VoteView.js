@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import VoteButton from '../../components/VoteButton/VoteButton';
 import VoteDisplay from '../../components/VoteDisplay/VoteDisplay';
 import Loader from '../../components/Loader/Loader';
-import "./VoteView.css"
+import './VoteView.css';
 
 class VoteView extends Component {
   constructor(props) {
@@ -11,7 +11,7 @@ class VoteView extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:3001/api/events/unpublished', {
+    fetch('/api/events/unpublished', {
       credentials: 'include',
     })
       .then((res) => res.json())
@@ -35,7 +35,7 @@ class VoteView extends Component {
       vote,
     };
     console.log(data);
-    fetch('http://localhost:3001/api/vote', {
+    fetch('/api/vote', {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
@@ -55,10 +55,9 @@ class VoteView extends Component {
   };
 
   render() {
-
     const display = (
       <div className='hero is-fullheight has-background-grey-light'>
-        <VoteDisplay className="event" event={this.state.currentEvent} />
+        <VoteDisplay className='event' event={this.state.currentEvent} />
         <VoteButton type={false} handleClick={this.handleVote} />
         <VoteButton type={true} handleClick={this.handleVote} />
       </div>

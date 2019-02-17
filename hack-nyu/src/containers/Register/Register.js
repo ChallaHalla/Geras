@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import SignUp from '../../components/SignUp/SignUp.js';
 import NameList from '../../components/NameList/NameList';
-import './Register.css'
+import './Register.css';
 
 class SignInView extends Component {
   constructor(props) {
@@ -36,7 +36,7 @@ class SignInView extends Component {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((pos) => {
         fetch(
-          'http://localhost:3001/api/locations?long=' +
+          '/api/locations?long=' +
             pos.coords.longitude +
             '&lat=' +
             pos.coords.longitude,
@@ -44,20 +44,20 @@ class SignInView extends Component {
         ).then((res) => {
           console.log(res);
           res.json().then((c) => {
-            const communities = c.map((comm)=>{
+            const communities = c.map((comm) => {
               return comm.community.name;
             });
-            const descriptions = c.map((comm)=>{
+            const descriptions = c.map((comm) => {
               return comm.community.desc;
             });
-            const ids = c.map((comm)=>{
+            const ids = c.map((comm) => {
               return comm.community._id;
             });
-            console.log('communities',communities);
+            console.log('communities', communities);
             this.setState({
               communities: communities,
               descriptions: descriptions,
-              cIndex:0,
+              cIndex: 0,
               ids: ids,
             });
             this.progressStage();
@@ -69,13 +69,13 @@ class SignInView extends Component {
 
   nextCommunity = () => {
     this.setState({
-      cIndex: (this.state.cIndex +1)%(this.state.communities.length),
+      cIndex: (this.state.cIndex + 1) % this.state.communities.length,
     });
-  }
+  };
 
   getNames = () => {
     console.log(this.state);
-    fetch('http://localhost:3001/api/usernameSuggest?name=' + this.state.name, {
+    fetch('/api/usernameSuggest?name=' + this.state.name, {
       credentials: 'include',
     }).then((res) => {
       res.json().then((names) => {
@@ -95,7 +95,7 @@ class SignInView extends Component {
       pin: this.state.pin,
     });
     console.log('body', body);
-    fetch('http://localhost:3001/api/user', {
+    fetch('/api/user', {
       method: 'POST',
       body: body,
       headers: {
@@ -115,30 +115,30 @@ class SignInView extends Component {
   render() {
     if (this.state.stage === 1) {
       return (
-        <div className="regContainer">
-        <SignUp
-          name={this.state.name}
-          pin={this.state.pin}
-          handleChange={this.handleChange}
-          progressStage={this.progressStage}
-        />
+        <div className='regContainer'>
+          <SignUp
+            name={this.state.name}
+            pin={this.state.pin}
+            handleChange={this.handleChange}
+            progressStage={this.progressStage}
+          />
         </div>
       );
     }
     if (this.state.stage === 2) {
       return (
-        <div className="regContainer">
-        <h1 className="title is-1">Choose a pin</h1>
+        <div className='regContainer'>
+          <h1 className='title is-1'>Choose a pin</h1>
           <input
-            className="input is-large"
+            className='input is-large'
             type='password'
-            placeholder="Enter Pin"
+            placeholder='Enter Pin'
             value={this.state.pin}
             onChange={this.handleChange}
             name='pin'
           />
           <button
-            className="button regButton greenHov"
+            className='button regButton greenHov'
             onClick={() => {
               this.getNames();
             }}
@@ -150,50 +150,61 @@ class SignInView extends Component {
     }
     if (this.state.stage === 3) {
       return (
-        <div className="regContainer">
-        <NameList
-          names={this.state.usernames}
-          progressStage={this.progressStage}
-          handleChange={this.handleChange}
-        />
+        <div className='regContainer'>
+          <NameList
+            names={this.state.usernames}
+            progressStage={this.progressStage}
+            handleChange={this.handleChange}
+          />
         </div>
       );
     }
     if (this.state.stage === 4) {
       return (
-        <div className="regContainer">
-        <button
-        className="button is-large is-fullwidth greenHov"
-          onClick={() => {
-            this.getLocation();
-          }}
-        >
-          Locate me!
-        </button>
+        <div className='regContainer'>
+          <button
+            className='button is-large is-fullwidth greenHov'
+            onClick={() => {
+              this.getLocation();
+            }}
+          >
+            Locate me!
+          </button>
         </div>
       );
     }
     if (this.state.stage === 5) {
       return (
-        <div className="regContainer">
-          <h1 className="title is-1">{this.state.communities[this.state.cIndex]}!</h1>
-          <h2 className="subtitle is-1">{this.state.descriptions[this.state.cIndex]}</h2>
-          <h2 className="subtitle is-1">New York, NY 10012</h2>
-          <button className="button greenHov" onClick={this.progressStage}> Yes </button>
-          <button className="button greenHov" onClick={this.nextCommunity}> Find another community </button>
+        <div className='regContainer'>
+          <h1 className='title is-1'>
+            {this.state.communities[this.state.cIndex]}!
+          </h1>
+          <h2 className='subtitle is-1'>
+            {this.state.descriptions[this.state.cIndex]}
+          </h2>
+          <h2 className='subtitle is-1'>New York, NY 10012</h2>
+          <button className='button greenHov' onClick={this.progressStage}>
+            {' '}
+            Yes{' '}
+          </button>
+          <button className='button greenHov' onClick={this.nextCommunity}>
+            {' '}
+            Find another community{' '}
+          </button>
         </div>
       );
     }
     if (this.state.stage === 6) {
       return (
-        <div className="regContainer">
+        <div className='regContainer'>
           <button
-          className="button is-large creatAcct greenHov"
+            className='button is-large creatAcct greenHov'
             onClick={() => {
               this.createUser();
               this.props.history.push('/vote');
             }}
-          >Create account
+          >
+            Create account
           </button>
         </div>
       );

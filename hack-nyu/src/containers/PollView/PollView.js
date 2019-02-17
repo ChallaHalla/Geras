@@ -9,7 +9,7 @@ class PollView extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:3001/api/events/unpublished', {
+    fetch('/api/events/unpublished', {
       credentials: 'include',
     })
       .then((res) => res.json())

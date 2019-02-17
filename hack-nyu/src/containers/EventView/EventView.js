@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Loader from '../../components/Loader/Loader';
 import EventWidget from '../../components/EventWidget/EventWidget';
-import "./EventView.css"
+import './EventView.css';
 
 class EventView extends Component {
   constructor(props) {
@@ -10,7 +10,7 @@ class EventView extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:3001/api/events/published', {
+    fetch('/api/events/published', {
       credentials: 'include',
     })
       .then((res) => res.json())
@@ -37,7 +37,7 @@ class EventView extends Component {
       })
       .catch(console.log);
 
-    fetch('http://localhost:3001/api/me', {
+    fetch('/api/me', {
       credentials: 'include',
     })
       .then((res) => res.json())
@@ -49,7 +49,7 @@ class EventView extends Component {
   }
   addGuest = (event) => {
     const body = JSON.stringify({ eventId: event._id });
-    fetch('http://localhost:3001/api/event/addGuest', {
+    fetch('/api/event/addGuest', {
       method: 'POST',
       body: body,
       credentials: 'include',
