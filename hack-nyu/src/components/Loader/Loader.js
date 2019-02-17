@@ -4,7 +4,7 @@ import './Loader.css';
 
 function Loader() {
   return (
-    <div className = "loader">
+    <div className = "loaderLoop">
       <Spinner height='128px' width='128px' color='teal' />
     </div>
   );

@@ -2,14 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './NavBar.css';
 
+
 function NavBar(currentPage) {
   return (
-    <nav className='navbar is-dark'>
+    <nav className='navbar is-dark is-fixed-top'>
       <div
         className='navbar-start navbar-brand'
         style={{ justifyContent: 'flex-start', marginRight: 'auto' }}
       >
-        <h1 className='navbar-item'>Geriactive</h1>
+        <img src={'/img/logo.png'} className='navbar-item' style = {{height: '70px', marginTop: '8px'}} alt='Logo' />
       </div>
       <div
         className='navbar-end'
@@ -27,7 +28,7 @@ function NavBar(currentPage) {
         </div>
       </div>
 
-      <img src='' alt='Logo' style={{ display: 'none' }} />
+      
     </nav>
   );
 }
