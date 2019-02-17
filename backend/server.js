@@ -106,6 +106,7 @@ app.get('/api/events', (req, res) => {
     .populate('attendees')
     .populate('yesList')
     .populate('noList')
+    .populate('creator')
     .exec((err, varToStoreResult) => {
       res.json(varToStoreResult);
     });
@@ -116,6 +117,7 @@ app.get('/api/events/published', (req, res) => {
     .populate('attendees')
     .populate('yesList')
     .populate('noList')
+    .populate('creator')
     .exec((err, varToStoreResult) => {
       res.json(varToStoreResult);
     });
@@ -126,6 +128,7 @@ app.get('/api/events/unpublished', (req, res) => {
     .populate('attendees')
     .populate('yesList')
     .populate('noList')
+    .populate('creator')
     .exec((err, varToStoreResult) => {
       res.json(varToStoreResult);
     });
