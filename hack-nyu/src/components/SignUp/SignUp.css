@@ -1,0 +1,21 @@
+.signUpContainer{
+  width: 75vw;
+}
+.title{
+  font-size: 80px !important;
+  /* color: white !important; */
+  text-align: center;
+}
+input {
+  /* Firefox, Chrome, Opera */
+  text-align: center;
+}
+.button{
+  padding-left: 36vw;
+  text-align: center !important;
+}
+.regButton{
+  margin-left: 0px !important;
+  padding-left: 35vw !important;
+  padding-right: 35vw !important;
+}

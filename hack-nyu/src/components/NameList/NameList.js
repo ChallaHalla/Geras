@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SignUp from '../SignUp/SignUp';
+import './NameList.css'
 
 class NameList extends Component{
     render(){
@@ -9,7 +10,7 @@ class NameList extends Component{
         return (
             <div>
             {names.map((n)=>{
-              return <button name="username" value={n} onClick={(e)=>{
+              return <button className="button is-large is-fullwidth nameButton"name="username" value={n} onClick={(e)=>{
                 this.props.progressStage();
                 this.props.handleChange(e);
               }}>{n}</button>;

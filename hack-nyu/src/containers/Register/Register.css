@@ -1,0 +1,34 @@
+.regContainer{
+  margin-left: 10vw;
+  text-align: center;
+  width: 75vw;
+}
+
+.title{
+  font-size: 80px !important;
+  /* color: white !important; */
+  text-align: center;
+}
+input::placeholder {
+
+               /* Firefox, Chrome, Opera */
+               text-align: center;
+}
+button{
+  text-align: center !important;
+}
+.regButton{
+  padding-left: 35.5vw !important;
+  padding-right: 35.5vw !important;
+}
+h2{
+  align-self: center;
+}
+.creatAcct{
+  vertical-align: center;
+  padding-left: 200px !important;
+  padding-right: 200px !important;
+  padding-top: 40px !important;
+  padding-bottom: 100px !important;
+  font-size: 30pt !important;
+}
