@@ -286,11 +286,17 @@ app.post('/api/event/addGuest', (req, res) => {
     User.findOne({ _id: req.session.userId }, (err, varToStoreResult) => {
       let user = varToStoreResult;
       // perhaps check if user exists in array before pushing
-      event.attendees.push(user._id);
-      console.log(event);
+      let status;
+      if(event.attendees.indexOf(user._id) === -1){
+        console.log(event, 'added');
+        event.attendees.push(user._id);
+        status = "success"
+      } else{
+        console.log(event, 'already guest');
+        status = "user already guest"
+      }
       event.save(() => {
-        console.log('guest added');
-        res.end();
+        res.json({status:status});
       });
     });
   });
