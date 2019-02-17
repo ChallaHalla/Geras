@@ -37,9 +37,11 @@ function EventWidget(props) {
         <p className='location'>
           <FontAwesomeIcon icon={faMapMarkerAlt} /> {e.location}
         </p>
-        <p className='creator'>
-          <FontAwesomeIcon icon={faUserCircle} /> Hosted by {e.creator.name}
-        </p>
+        {e.creator && (
+          <p className='creator'>
+            <FontAwesomeIcon icon={faUserCircle} /> Hosted by {e.creator.name}
+          </p>
+        )}
         <p className='attendees level-left'>
           <FontAwesomeIcon icon={faUser} />
           &nbsp;{attendeeList(e)}
