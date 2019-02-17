@@ -1,5 +1,5 @@
 import React from 'react';
-
+import "./EventWidget.css"
 
 function EventWidget(props) {
   const e = props.event;
