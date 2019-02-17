@@ -1,5 +1,6 @@
 .navbar {
   display: flex;
+  margin-bottom: 40px;
 }
 
 .navbar div.navbar-start {

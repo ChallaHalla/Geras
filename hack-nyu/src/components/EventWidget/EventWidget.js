@@ -47,7 +47,7 @@ function EventWidget(props) {
         >
           {' '}
           RSVP{' '}
-        </button> */
+        </button> */}
         <EventRsvpButton
           event={props.event}
           me={props.me}
