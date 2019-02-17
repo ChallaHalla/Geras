@@ -58,6 +58,7 @@ class EventView extends Component {
     }).then((res) => {
       res.json().then((data) => {
         console.log('state', this.state);
+        this.componentDidMount();
       });
     });
   };

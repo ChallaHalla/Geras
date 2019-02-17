@@ -1,4 +1,5 @@
 import React from 'react';
+import EventRsvpButton from '../../components/EventRsvpButton/EventRsvpButton';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
@@ -39,17 +40,20 @@ function EventWidget(props) {
         <p className='attendees level-left'>
           <FontAwesomeIcon icon={faUser} /> {attendeeList(e)}
         </p>
-        <button
+        {/* <button
           onClick={() => {
             props.addGuest(props.event);
           }}
         >
           {' '}
           RSVP{' '}
-        </button>
+        </button> */}
+        <EventRsvpButton
+          event={props.event}
+          me={props.me}
+          handleClick={props.addGuest}
+        />
         {e.image && <img src={e.image} className='previewImage' alt='Event' />}
-        {props.me}
-        <button className='button is-primary'>Sign Up</button>
         {e.image && (
           <img
             src={e.image}
