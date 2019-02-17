@@ -14,7 +14,6 @@ library.add(faUser);
 library.add(faClock);
 library.add(faCalendarAlt);
 
-
 function EventWidget(props) {
   const e = props.event;
   return (
@@ -35,13 +34,21 @@ function EventWidget(props) {
         <FontAwesomeIcon icon={faMapMarkerAlt} />
         <p className='location'>{e.location}</p>
         <p className='creator'>
-          Created by <FontAwesomeIcon icon={faUserCircle} /> {e.creator.name}
+          <FontAwesomeIcon icon={faUserCircle} /> Hosted by {e.creator.name}
         </p>
         <p className='attendees'>
           <FontAwesomeIcon icon={faUser} /> {attendeeList(e)}
         </p>
-        <button onClick={()=>{props.addGuest(props.event)}}> RSVP </button>
+        <button
+          onClick={() => {
+            props.addGuest(props.event);
+          }}
+        >
+          {' '}
+          RSVP{' '}
+        </button>
         {e.image && <img src={e.image} className='previewImage' alt='Event' />}
+        {props.me}
       </div>
     </div>
   );
