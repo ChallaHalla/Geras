@@ -1,0 +1,35 @@
+.vote{
+    width: 50%;
+    display:block;
+    bottom: 0px;
+    position: fixed;
+    height: 25%;
+    font-size: 7em;
+    border: 0px;
+    border-top: solid black 3px;
+}
+
+#times{
+    left: 0;
+    background-color: lightcoral
+}
+#times:hover{
+    background-color: red
+}
+#times:active {
+    background-color: darkred;
+    transform: translateY(4px);
+}
+
+#check{
+    right: 0;
+    background-color: lightgreen;
+}
+#check:hover{
+    background-color: green;
+}
+
+#check:active {
+    background-color: darkgreen;
+    transform: translateY(4px);
+}
