@@ -66,6 +66,12 @@ app.post('/api/user', (req, res) => {
   });
 });
 
+app.get('/api/me', (req, res) => {
+  res.json({
+    id: req.session.userId,
+  });
+});
+
 app.post('/api/login', (req, res) => {
   const username = req.body.username;
   const pin = req.body.pin;
