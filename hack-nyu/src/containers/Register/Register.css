@@ -2,6 +2,7 @@
   margin-left: 10vw;
   text-align: center;
   width: 75vw;
+  margin-top: 100px;
 }
 
 .title{
@@ -31,4 +32,8 @@ h2{
   padding-top: 40px !important;
   padding-bottom: 100px !important;
   font-size: 30pt !important;
+}
+.greenHov:hover{
+  background-color: green!important;
+  color:white !important;
 }

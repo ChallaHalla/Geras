@@ -1,7 +1,7 @@
 button{
   margin: 10px !important;
 }
-button:hover{
+.nameButton:hover{
   background-color:green !important;
   color:white !important;
 }

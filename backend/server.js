@@ -53,9 +53,10 @@ app.get('/api/user', (req, res) => {
 
 //create users
 app.post('/api/user', (req, res) => {
-  console.log(req);
+  console.log(req.body);
   const user = new User({
     name: req.body.username,
+    pin: req.body.pin,
     communities: [req.body.community],
     events: [],
   });
@@ -75,6 +76,7 @@ app.get('/api/me', (req, res) => {
 app.post('/api/login', (req, res) => {
   const username = req.body.username;
   const pin = req.body.pin;
+  console.log(req.body);
 
   User.findOne({ name: username, pin: pin }, (err, varToStoreResult) => {
     if (varToStoreResult !== null) {

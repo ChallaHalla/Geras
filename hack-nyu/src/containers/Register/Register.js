@@ -117,7 +117,7 @@ class SignInView extends Component {
             name='pin'
           />
           <button
-            className="button regButton"
+            className="button regButton greenHov"
             onClick={() => {
               this.getNames();
             }}
@@ -142,7 +142,7 @@ class SignInView extends Component {
       return (
         <div className="regContainer">
         <button
-        className="button is-large is-fullwidth"
+        className="button is-large is-fullwidth greenHov"
           onClick={() => {
             this.getLocation();
           }}
@@ -157,8 +157,8 @@ class SignInView extends Component {
         <div className="regContainer">
           <h1 className="title is-1">{this.state.community.name}!</h1>
           <h2 className="subtitle is-1">New York, NY 10012</h2>
-          <button className="button" onClick={this.progressStage}> Yes </button>
-          <button className="button"> Find another community </button>
+          <button className="button greenHov" onClick={this.progressStage}> Yes </button>
+          <button className="button greenHov"> Find another community </button>
         </div>
       );
     }
@@ -166,7 +166,7 @@ class SignInView extends Component {
       return (
         <div className="regContainer">
           <button
-          className="button is-large creatAcct"
+          className="button is-large creatAcct greenHov"
             onClick={() => {
               this.createUser();
               this.props.history.push('/vote');

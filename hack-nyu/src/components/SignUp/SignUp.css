@@ -19,3 +19,7 @@ input {
   padding-left: 35vw !important;
   padding-right: 35vw !important;
 }
+.regButton:hover{
+  background-color: green;
+  color:white !important;
+}
